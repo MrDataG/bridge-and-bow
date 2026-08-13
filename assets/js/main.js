@@ -68,9 +68,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---- Cookie consent banner ----
   const cookieBanner = document.getElementById('cookieBanner');
   if (cookieBanner) {
-    setTimeout(() => cookieBanner.classList.add('show'), 900);
+    const consentKey = 'bnb_cookie_consent';
+    let alreadyChosen = null;
+    try { alreadyChosen = localStorage.getItem(consentKey); } catch (e) { /* storage blocked, fall through and show banner */ }
+    if (!alreadyChosen) {
+      setTimeout(() => cookieBanner.classList.add('show'), 900);
+    }
     cookieBanner.querySelectorAll('[data-cookie-dismiss]').forEach(btn => {
-      btn.addEventListener('click', () => cookieBanner.classList.remove('show'));
+      btn.addEventListener('click', () => {
+        try { localStorage.setItem(consentKey, 'dismissed'); } catch (e) { /* storage blocked, banner will just reappear next visit */ }
+        cookieBanner.classList.remove('show');
+      });
     });
   }
 
