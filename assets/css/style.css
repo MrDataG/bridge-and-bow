@@ -196,7 +196,8 @@
   .fact-row{display:flex; justify-content:space-between; font-size:13px; padding:8px 0; border-bottom:1px solid var(--line);}
   .fact-row:last-child{border-bottom:none;}
   .fact-row span:last-child{font-weight:700;}
-  .related-item{font-size:13px; padding:8px 0; border-bottom:1px solid var(--line); cursor:pointer; font-weight:600;}
+  .related-item{display:block; font-size:13px; padding:10px 0; border-bottom:1px solid var(--line); cursor:pointer; font-weight:600;}
+  .related-item:last-child{border-bottom:none;}
   .related-item:hover{color:var(--brass-dark);}
   .excursion-item{background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px; display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:10px;}
   .excursion-item .name{font-weight:700; font-size:14.5px;}
