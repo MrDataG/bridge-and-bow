@@ -38,13 +38,13 @@
   .brand-word .amp{color:var(--brass-dark); font-style:italic;}
   .brand-tag{font-family:'Fragment Mono',monospace; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); margin-top:3px;}
   nav.primary{display:flex; align-items:center; gap:2px;}
-  nav.primary button{
+  nav.primary a{
     font-family:'Fragment Mono',monospace; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase;
     background:none; border:none; cursor:pointer; color:var(--ink-soft); padding:10px 14px; position:relative;
   }
-  nav.primary button:hover{color:var(--ink);}
-  nav.primary button[aria-current="true"]{color:var(--brass-dark); font-weight:700;}
-  nav.primary button[aria-current="true"]::after{content:""; position:absolute; left:14px; right:14px; bottom:3px; height:2px; background:var(--brass);}
+  nav.primary a:hover{color:var(--ink);}
+  nav.primary a[aria-current="true"]{color:var(--brass-dark); font-weight:700;}
+  nav.primary a[aria-current="true"]::after{content:""; position:absolute; left:14px; right:14px; bottom:3px; height:2px; background:var(--brass);}
   .menu-toggle{
     display:none; background:none; border:none; width:40px; height:40px; border-radius:10px;
     cursor:pointer; position:relative; transition:background .15s;
@@ -70,8 +70,8 @@
       transition:opacity .2s ease, transform .2s ease, visibility .2s;
     }
     nav.primary.open{opacity:1; visibility:visible; transform:translateY(0); pointer-events:auto;}
-    nav.primary button{text-align:left; padding:13px 16px; border-radius:9px;}
-    nav.primary button:hover{background:var(--paper-2);}
+    nav.primary a{text-align:left; padding:13px 16px; border-radius:9px;}
+    nav.primary a:hover{background:var(--paper-2);}
     .menu-toggle{display:block;}
   }
 
