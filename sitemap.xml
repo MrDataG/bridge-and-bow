@@ -16,6 +16,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://bridgeandbowtravel.com/ports/nassau.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://bridgeandbowtravel.com/about.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
