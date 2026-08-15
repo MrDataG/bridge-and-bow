@@ -100,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.textContent = 'Sending...';
 
       const body = new URLSearchParams();
+      body.append('formType', 'newsletter');
       body.append('email', email);
       body.append('source', window.location.pathname);
 
@@ -117,6 +118,51 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(() => {
           submitBtn.disabled = false;
           submitBtn.textContent = 'Subscribe';
+          msg.textContent = 'Something went wrong — try again in a moment.';
+          msg.style.display = 'block';
+        });
+    });
+  }
+
+  // ---- Contact form (same Google Sheet / Apps Script as newsletter) ----
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (evt) {
+      evt.preventDefault();
+      const nameInput = document.getElementById('name');
+      const emailInput = document.getElementById('email');
+      const messageInput = document.getElementById('message');
+      const msg = document.getElementById('contactMsg');
+      const submitBtn = contactForm.querySelector('button');
+
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const message = messageInput.value.trim();
+      if (!name || !email || email.indexOf('@') === -1 || !message) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      const body = new URLSearchParams();
+      body.append('formType', 'contact');
+      body.append('name', name);
+      body.append('email', email);
+      body.append('message', message);
+
+      fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString()
+      })
+        .then(() => {
+          contactForm.style.display = 'none';
+          msg.textContent = "Thanks — we'll get back to you soon.";
+          msg.style.display = 'block';
+        })
+        .catch(() => {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send message';
           msg.textContent = 'Something went wrong — try again in a moment.';
           msg.style.display = 'block';
         });

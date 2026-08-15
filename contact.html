@@ -70,7 +70,8 @@
 
     <!-- Uses Formspree (free tier) so this form works with zero backend code.
          Sign up at formspree.io, create a form, and replace YOUR_FORM_ID below. -->
-    <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <!-- Uses the same Google Apps Script Web App as the newsletter signup — see assets/js/main.js -->
+    <form class="contact-form" id="contactForm">
       <label for="name">Name</label>
       <input type="text" id="name" name="name" required>
       <label for="email">Email</label>
@@ -79,6 +80,7 @@
       <textarea id="message" name="message" required></textarea>
       <button type="submit">Send message</button>
     </form>
+    <p class="contact-form-note" id="contactMsg" style="display:none; font-size:13px; color:var(--ink-soft); margin-top:14px;"></p>
 
     <p style="font-size:13px; color:var(--ink-soft); margin-top:28px;">Or email us directly at <b>bridgeandbowtravel@gmail.com</b>.</p>
   </div>
