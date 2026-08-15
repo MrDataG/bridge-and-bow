@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---- Newsletter signup (Google Sheet via Apps Script) ----
   // Replace APPS_SCRIPT_URL with the /exec URL from your Web App deployment.
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw409pg6HwnyYwndg1XxLt_FfpOC3ZC14TEttI5XZKTqT217IzgPa1Uv3GuW31NxUDY/exec';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyp2EfFa3gAg17gBabNii9PMIU3I9fwhUGX5IEfo2I1qcpnCggwkZIbPjXkflOq_JQk/exec';
   const newsletterForm = document.getElementById('newsletterForm');
   if (newsletterForm) {
     newsletterForm.addEventListener('submit', function (evt) {
