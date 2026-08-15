@@ -82,4 +82,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ---- Newsletter signup (Google Sheet via Apps Script) ----
+  // Replace APPS_SCRIPT_URL with the /exec URL from your Web App deployment.
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw409pg6HwnyYwndg1XxLt_FfpOC3ZC14TEttI5XZKTqT217IzgPa1Uv3GuW31NxUDY/exec';
+  const newsletterForm = document.getElementById('newsletterForm');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', function (evt) {
+      evt.preventDefault();
+      const emailInput = document.getElementById('newsletterEmail');
+      const msg = document.getElementById('newsletterMsg');
+      const submitBtn = newsletterForm.querySelector('button');
+      const email = emailInput.value.trim();
+
+      if (!email || email.indexOf('@') === -1) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      const body = new URLSearchParams();
+      body.append('email', email);
+      body.append('source', window.location.pathname);
+
+      fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors', // Apps Script doesn't return CORS headers; response is opaque, so we optimistically assume success
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString()
+      })
+        .then(() => {
+          newsletterForm.style.display = 'none';
+          msg.textContent = "You're on the list — thanks!";
+          msg.style.display = 'block';
+        })
+        .catch(() => {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Subscribe';
+          msg.textContent = 'Something went wrong — try again in a moment.';
+          msg.style.display = 'block';
+        });
+    });
+  }
+
 });

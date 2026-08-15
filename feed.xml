@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Bridge &amp; Bow Travel</title>
+  <link>https://bridgeandbowtravel.com/</link>
+  <description>Family cruise planning — honest ship reviews, port guides, and packing lists.</description>
+  <language>en-us</language>
+  <atom:link href="https://bridgeandbowtravel.com/feed.xml" rel="self" type="application/rss+xml"/>
+
+  <item>
+    <title>Disney Fantasy vs. Disney Wish: Which Is Better for Families?</title>
+    <link>https://bridgeandbowtravel.com/cruise-lines/disney-fantasy-vs-wish.html</link>
+    <guid>https://bridgeandbowtravel.com/cruise-lines/disney-fantasy-vs-wish.html</guid>
+    <description>Tonnage, kids' clubs, and which Disney ship actually suits a toddler crew.</description>
+    <pubDate>Mon, 10 Aug 2026 12:00:00 GMT</pubDate>
+  </item>
+
+  <item>
+    <title>Castaway Cay: Family Beach vs. Serenity Bay</title>
+    <link>https://bridgeandbowtravel.com/ports/castaway-cay.html</link>
+    <guid>https://bridgeandbowtravel.com/ports/castaway-cay.html</guid>
+    <description>Which beach to pick at Disney's private island, and toddler-specific tips.</description>
+    <pubDate>Mon, 10 Aug 2026 12:00:00 GMT</pubDate>
+  </item>
+
+  <item>
+    <title>Nassau Shore Excursions Worth Booking as a Family</title>
+    <link>https://bridgeandbowtravel.com/ports/nassau.html</link>
+    <guid>https://bridgeandbowtravel.com/ports/nassau.html</guid>
+    <description>Swimming pigs, Pearl Island, and the Atlantis sightseeing tour — real Nassau excursions for cruise families.</description>
+    <pubDate>Tue, 11 Aug 2026 12:00:00 GMT</pubDate>
+  </item>
+
+  <item>
+    <title>Best Time to Book a Disney Cruise (2026–2027)</title>
+    <link>https://bridgeandbowtravel.com/planning/best-time-to-book-disney-cruise.html</link>
+    <guid>https://bridgeandbowtravel.com/planning/best-time-to-book-disney-cruise.html</guid>
+    <description>When itineraries release, what actually moves the price, and the deposit timeline.</description>
+    <pubDate>Wed, 12 Aug 2026 12:00:00 GMT</pubDate>
+  </item>
+
+  <item>
+    <title>Toddler Packing List for a Family Cruise</title>
+    <link>https://bridgeandbowtravel.com/planning/toddler-packing-list.html</link>
+    <guid>https://bridgeandbowtravel.com/planning/toddler-packing-list.html</guid>
+    <description>What earned its spot in the suitcase — and what we left behind.</description>
+    <pubDate>Wed, 12 Aug 2026 12:00:00 GMT</pubDate>
+  </item>
+
+</channel>
+</rss>

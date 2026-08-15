@@ -164,7 +164,11 @@
   <section class="cta-band">
     <div class="wrap cta-band-inner">
       <div><h2>Port guides &amp; deal alerts, straight to your inbox</h2><p>One email a week. No spam, no fake urgency.</p></div>
-      <div class="cta-form"><input type="email" placeholder="you@email.com" aria-label="Email address"><button>Subscribe</button></div>
+      <form class="cta-form" id="newsletterForm">
+        <input type="email" name="email" id="newsletterEmail" placeholder="you@email.com" aria-label="Email address" required>
+        <button type="submit">Subscribe</button>
+      </form>
+      <p class="cta-form-note" id="newsletterMsg" style="display:none; font-size:12.5px; color:#B9CCDA; margin-top:10px;"></p>
     </div>
   </section>
 </main>
