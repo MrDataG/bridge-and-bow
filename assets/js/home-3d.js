@@ -39,22 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', onScroll3d, { passive: true });
   onScroll3d();
 
-  // ---- Custom cursor (fine-pointer devices only) ----
-  if (hasHover && !reduceMotion) {
-    const cursor = document.getElementById('cursor');
-    if (cursor) {
-      window.addEventListener('mousemove', (e) => {
-        cursor.classList.add('ready');
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-      }, { passive: true });
-      document.querySelectorAll('a, button, .tilt-card, .guide-card').forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('active'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
-      });
-    }
-  }
-
   // ---- Entrance reveals: voyage stops, stat cells, pillar cards ----
   const io = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
@@ -85,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }, { threshold: .5 });
-  document.querySelectorAll('.stat-num').forEach(el => countIo.observe(el));
+  document.querySelectorAll('.stat-num3d').forEach(el => countIo.observe(el));
 
   // ---- Curved-path scroll-driven ship — stays UPRIGHT throughout,
   // confined to a safe x:8-22 (of 0-100) corridor so it can never
