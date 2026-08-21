@@ -11,6 +11,9 @@
 }
 
 body.home-3d{ background:var(--h3d-navy-deep); color:var(--paper); overflow-x:hidden; cursor:default; }
+.home-3d a:focus-visible, .home-3d button:focus-visible, .home-3d input:focus-visible{
+  outline:2px solid var(--h3d-brass-light); outline-offset:2px; border-radius:2px;
+}
 
 /* film grain texture */
 body.home-3d::before{
@@ -72,19 +75,7 @@ body.home-3d::before{
 }
 .btn-ghost:hover{background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.6);}
 
-.badge-stage{margin-top:50px; width:210px; height:210px; opacity:0; animation:h3d-fadeUp 1s ease 1.15s forwards;}
-.badge{width:100%; height:100%; position:relative; transform-style:preserve-3d; transition:transform .1s ease-out; animation:h3d-float 6.5s ease-in-out infinite;}
-@keyframes h3d-float{0%,100%{transform:translateY(0) rotateX(9deg) rotateY(-7deg);} 50%{transform:translateY(-16px) rotateX(9deg) rotateY(7deg);}}
-.badge-ring{position:absolute; inset:-16px; border-radius:50%; border:1px solid var(--h3d-glass-line); transform:translateZ(-12px) rotateX(70deg);}
-.badge-ring.r2{inset:-32px; border-color:rgba(243,213,145,.1); transform:translateZ(-24px) rotateX(70deg);}
-.badge-face{
-  position:absolute; inset:0; border-radius:50%; transform:translateZ(22px);
-  background:radial-gradient(circle at 34% 28%, var(--h3d-navy-2), var(--h3d-navy-deep) 72%);
-  box-shadow:0 44px 90px rgba(0,0,0,.45), inset 0 2px 0 rgba(255,255,255,.09), 0 0 0 1px var(--h3d-glass-line);
-  display:flex; align-items:center; justify-content:center;
-}
-
-.scroll-cue{margin-top:46px; display:flex; flex-direction:column; align-items:center; gap:9px; opacity:.7;}
+.scroll-cue{margin-top:56px; display:flex; flex-direction:column; align-items:center; gap:9px; opacity:.7;}
 .scroll-cue .line{width:1px; height:38px; background:linear-gradient(var(--h3d-brass-light),transparent); animation:h3d-cue 2.2s ease-in-out infinite;}
 @keyframes h3d-cue{0%{opacity:0; transform:scaleY(0); transform-origin:top;} 50%{opacity:1; transform:scaleY(1);} 100%{opacity:0; transform:scaleY(0); transform-origin:bottom;}}
 .scroll-cue span{font-family:'Fragment Mono',monospace; font-size:11px; letter-spacing:.22em; color:var(--h3d-brass-light);}
@@ -193,7 +184,6 @@ body.home-3d::before{
 @media (prefers-reduced-motion:reduce){
   .home-3d *{animation:none !important; transition:none !important;}
   .reveal-line{transform:none !important;}
-  .badge{transform:none !important;}
   .stop, .stat-cell, .tilt-card{opacity:1 !important; translate:0 !important; transform:none !important;}
   .home-3d .foil{background:var(--h3d-brass-light); -webkit-text-fill-color:initial; color:var(--h3d-brass-light);}
   #loader{display:none;}

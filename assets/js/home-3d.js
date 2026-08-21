@@ -14,26 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loader) setTimeout(() => loader.classList.add('hide'), reduceMotion ? 0 : 500);
   });
 
-  // ---- Scroll progress bar + scroll-linked hero badge ----
+  // ---- Scroll progress bar ----
   const progress = document.getElementById('progress');
-  const heroBadge = document.getElementById('heroBadge');
-  const heroSection = document.querySelector('.hero3d');
 
   function onScroll3d() {
     const h = document.documentElement;
     if (progress) {
       const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
       progress.style.width = pct + '%';
-    }
-    // Badge reacts to scroll on every device (not just mouse) — as the
-    // hero scrolls out of view, it scales down and rotates away.
-    if (!reduceMotion && heroBadge && heroSection) {
-      const rect = heroSection.getBoundingClientRect();
-      const scrolledPast = Math.min(Math.max(-rect.top, 0), rect.height);
-      const p = scrolledPast / rect.height;
-      const scale = 1 - p * 0.25;
-      const rot = p * 20;
-      heroBadge.style.transform = `scale(${scale}) rotateY(${rot}deg) rotateX(9deg)`;
     }
   }
   window.addEventListener('scroll', onScroll3d, { passive: true });
