@@ -18,29 +18,28 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700;800&family=Fragment+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/home-3d.css">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EDJNC213VK"></script>
 <script src="assets/js/analytics.js"></script>
 </head>
-<body>
+<body class="home-3d">
 
-<div class="wake-rail" id="wakeRail">
-  <div class="track"></div>
-  <div class="fill" id="wakeFill"></div>
-  <div class="marker" id="wakeMarker"></div>
-</div>
+<div id="loader"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="none" stroke="#F3D591" stroke-width="1"/><path d="M9 27 L28 27 L40 31 L34 37 L12 37 C8.5 37 7 32 9 27 Z" fill="#F3D591"/></svg></div>
+<div id="progress"></div>
+<div id="cursor"></div>
 
 <header class="site" id="siteHeader">
   <div class="wrap header-inner">
     <a class="brand" href="index.html">
-      <svg class="logo-mark" width="36" height="36" viewBox="0 0 48 48">
-        <circle cx="24" cy="24" r="23" fill="#0F2340"/>
-        <path d="M9 27 L28 27 L40 31 L34 37 L12 37 C8.5 37 7 32 9 27 Z" fill="#B9862F"/>
-        <rect x="14.5" y="17" width="13" height="10" rx="1" fill="#B9862F"/>
-        <rect x="17" y="20.3" width="2.2" height="2.2" fill="#0F2340"/>
-        <rect x="20.4" y="20.3" width="2.2" height="2.2" fill="#0F2340"/>
-        <rect x="23.8" y="20.3" width="2.2" height="2.2" fill="#0F2340"/>
-        <line x1="21" y1="17" x2="21" y2="9.5" stroke="#B9862F" stroke-width="1.6" stroke-linecap="round"/>
-        <circle cx="21" cy="8.5" r="1.6" fill="#B9862F"/>
+      <svg class="logo-mark" width="34" height="34" viewBox="0 0 48 48">
+        <circle cx="24" cy="24" r="23" fill="#173769" stroke="#F3D591" stroke-width="1"/>
+        <path d="M9 27 L28 27 L40 31 L34 37 L12 37 C8.5 37 7 32 9 27 Z" fill="#F3D591"/>
+        <rect x="14.5" y="17" width="13" height="10" rx="1" fill="#F3D591"/>
+        <rect x="17" y="20.3" width="2.2" height="2.2" fill="#0B1C36"/>
+        <rect x="20.4" y="20.3" width="2.2" height="2.2" fill="#0B1C36"/>
+        <rect x="23.8" y="20.3" width="2.2" height="2.2" fill="#0B1C36"/>
+        <line x1="21" y1="17" x2="21" y2="9.5" stroke="#F3D591" stroke-width="1.4" stroke-linecap="round"/>
+        <circle cx="21" cy="8.5" r="1.5" fill="#F3D591"/>
       </svg>
       <div>
         <div class="brand-word">Bridge <span class="amp">&amp;</span> Bow</div>
@@ -53,126 +52,163 @@
     <nav class="primary" id="nav">
       <a href="index.html" aria-current="true">Home</a>
       <a href="cruise-lines/disney-fantasy-vs-wish.html">Cruise Lines</a>
-      <a href="index.html#pillars">Planning</a>
-      <a href="ports/castaway-cay.html">Ports</a>
+      <a href="planning/best-time-to-book-disney-cruise.html">Planning</a>
+      <a href="ports/nassau.html">Ports</a>
     </nav>
   </div>
 </header>
 
-<main>
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <div class="eyebrow">From the bridge, forward past the bow</div>
-        <h1>Chart the cruise. <em>Skip the guesswork.</em></h1>
-        <p class="lede">Family cruise planning from people who actually sail these ships — honest reviews, real port guides, and packing lists tested by one very opinionated toddler.</p>
-        <div class="hero-ctas">
-          <a class="btn btn-primary" href="cruise-lines/disney-fantasy-vs-wish.html">Compare cruise lines →</a>
-          <a class="btn btn-ghost" href="ports/castaway-cay.html">See a port guide</a>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <svg class="compass" viewBox="0 0 300 300">
-          <g class="ring">
-            <circle cx="150" cy="150" r="120" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1"/>
-            <circle cx="150" cy="150" r="95" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1"/>
-            <g stroke="rgba(232,197,120,.55)" stroke-width="1.5">
-              <line x1="150" y1="30" x2="150" y2="50"/><line x1="150" y1="250" x2="150" y2="270"/>
-              <line x1="30" y1="150" x2="50" y2="150"/><line x1="250" y1="150" x2="270" y2="150"/>
-            </g>
-            <path d="M150 45 L158 150 L150 255 L142 150 Z" fill="rgba(232,197,120,.35)"/>
-            <text x="150" y="26" fill="#E8C578" font-family="Fragment Mono" font-size="12" text-anchor="middle">N</text>
-            <text x="150" y="282" fill="rgba(255,255,255,.5)" font-family="Fragment Mono" font-size="12" text-anchor="middle">S</text>
-            <text x="20" y="155" fill="rgba(255,255,255,.5)" font-family="Fragment Mono" font-size="12" text-anchor="middle">W</text>
-            <text x="280" y="155" fill="rgba(255,255,255,.5)" font-family="Fragment Mono" font-size="12" text-anchor="middle">E</text>
-          </g>
-        </svg>
-        <svg class="bow-shape" viewBox="0 0 160 100">
-          <path d="M20 20 L20 80 L140 50 Z" fill="none" stroke="#F8F5EC" stroke-width="2.5" stroke-linejoin="round"/>
-          <rect x="30" y="34" width="16" height="6" fill="#E8C578"/>
-          <rect x="30" y="47" width="16" height="6" fill="#E8C578"/>
-          <rect x="30" y="60" width="16" height="6" fill="#E8C578"/>
+<!-- ======================= HERO ======================= -->
+<section class="hero3d scene">
+  <div class="hero-eyebrow"><span class="reveal-line" style="animation-delay:.3s;">FAMILY CRUISE PLANNING</span></div>
+  <h1>
+    <span style="display:block; overflow:hidden;"><span class="reveal-line" style="animation-delay:.45s;">Chart the cruise.</span></span>
+    <span style="display:block; overflow:hidden;"><span class="reveal-line foil" style="animation-delay:.6s;">Skip the guesswork.</span></span>
+  </h1>
+  <p class="lede">Family cruise planning from people who actually sail these ships — honest reviews, real port guides, and packing lists tested by one very opinionated toddler.</p>
+
+  <div class="hero-ctas">
+    <a class="btn-gold" href="cruise-lines/disney-fantasy-vs-wish.html">Compare cruise lines →</a>
+    <a class="btn-ghost" href="ports/nassau.html">See a port guide</a>
+  </div>
+
+  <div class="badge-stage scene">
+    <div class="badge" id="heroBadge">
+      <div class="badge-ring r2"></div>
+      <div class="badge-ring"></div>
+      <div class="badge-face">
+        <svg width="90" height="90" viewBox="0 0 48 48" style="transform:translateZ(30px);">
+          <path d="M9 27 L28 27 L40 31 L34 37 L12 37 C8.5 37 7 32 9 27 Z" fill="#F3D591"/>
+          <rect x="14.5" y="17" width="13" height="10" rx="1" fill="#F3D591"/>
+          <rect x="17" y="20.3" width="2.2" height="2.2" fill="#0B1C36"/>
+          <rect x="20.4" y="20.3" width="2.2" height="2.2" fill="#0B1C36"/>
+          <rect x="23.8" y="20.3" width="2.2" height="2.2" fill="#0B1C36"/>
+          <line x1="21" y1="17" x2="21" y2="9.5" stroke="#F3D591" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="21" cy="8.5" r="1.6" fill="#F3D591"/>
         </svg>
       </div>
     </div>
-    <div class="hero-wave"><svg viewBox="0 0 1440 68" preserveAspectRatio="none"><path d="M0 34C240 0 480 0 720 20C960 40 1200 62 1440 30V68H0V34Z" fill="#F8F5EC"/></svg></div>
-  </section>
+  </div>
+  <div class="scroll-cue"><div class="line"></div><span>SCROLL</span></div>
+</section>
 
-  <section class="stat-strip">
-    <div class="wrap stat-grid">
-      <div class="stat"><div class="stat-num" data-count="37">0</div><div class="stat-label">Ships &amp; itineraries researched</div></div>
-      <div class="stat"><div class="stat-num" data-count="1240" data-prefix="$">0</div><div class="stat-label">Avg. savings found vs. list fare</div></div>
-      <div class="stat"><div class="stat-num" data-count="14">0</div><div class="stat-label">Ports covered, updated each sailing</div></div>
-      <div class="stat"><div class="stat-num" data-count="1">0</div><div class="stat-label">Very opinionated toddler co-pilot</div></div>
+<!-- ======================= VOYAGE ======================= -->
+<section class="voyage scene">
+  <div class="wrap voyage-track" id="voyageTrack" style="min-height:1300px;">
+    <svg class="voyage-svg" viewBox="0 0 100 1300" preserveAspectRatio="none">
+      <path id="voyagePath" class="voyage-path" d="M14,60 C22,220 8,340 16,480 C22,600 10,720 16,860 C22,980 8,1080 15,1240"/>
+    </svg>
+    <div class="voyage-ship" id="voyageShip">
+      <svg viewBox="0 0 48 48">
+        <circle cx="24" cy="24" r="22" fill="#173769" stroke="#F3D591" stroke-width="1.5"/>
+        <path d="M9 27 L28 27 L40 31 L34 37 L12 37 C8.5 37 7 32 9 27 Z" fill="#F3D591"/>
+        <rect x="14.5" y="17" width="13" height="10" rx="1" fill="#F3D591"/>
+        <rect x="17" y="20.3" width="2.2" height="2.2" fill="#0B1C36"/>
+        <rect x="20.4" y="20.3" width="2.2" height="2.2" fill="#0B1C36"/>
+        <rect x="23.8" y="20.3" width="2.2" height="2.2" fill="#0B1C36"/>
+        <line x1="21" y1="17" x2="21" y2="9.5" stroke="#F3D591" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="21" cy="8.5" r="1.6" fill="#F3D591"/>
+      </svg>
     </div>
-  </section>
-
-  <section class="section" id="pillars">
-    <div class="wrap">
-      <div class="section-head"><div><h2>Start here</h2><p>Four pillars, one consistent format — every port and ship review scales from the same template.</p></div></div>
-      <div class="pillars">
-        <a class="pillar" href="cruise-lines/disney-fantasy-vs-wish.html">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M3 16l9-3 9 3-1 3H4l-1-3z" stroke="#B9862F" stroke-width="1.4"/><path d="M12 13V4M9 6h6" stroke="#B9862F" stroke-width="1.4" stroke-linecap="round"/></svg>
-          <h3>Cruise Lines</h3><p>Ship-by-ship reviews and honest family comparisons.</p><div class="pillar-cta">Browse reviews →</div>
-        </a>
-        <a class="pillar" href="planning/best-time-to-book-disney-cruise.html">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="1" stroke="#B9862F" stroke-width="1.4"/><path d="M3 9h18M8 3v3M16 3v3" stroke="#B9862F" stroke-width="1.4"/></svg>
-          <h3>Planning Guides</h3><p>Booking timing, insurance, budgeting basics.</p><div class="pillar-cta">Start planning →</div>
-        </a>
-        <a class="pillar" href="ports/castaway-cay.html">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z" stroke="#B9862F" stroke-width="1.4"/><circle cx="12" cy="9" r="2.2" stroke="#B9862F" stroke-width="1.4"/></svg>
-          <h3>Port Guides</h3><p>What to book, skip, and know before you dock.</p><div class="pillar-cta">See ports →</div>
-        </a>
-        <a class="pillar" href="planning/toddler-packing-list.html">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M6 8V6a2 2 0 012-2h8a2 2 0 012 2v2" stroke="#B9862F" stroke-width="1.4"/><rect x="4" y="8" width="16" height="12" rx="1.5" stroke="#B9862F" stroke-width="1.4"/></svg>
-          <h3>Gear &amp; Packing</h3><p>What actually survives a week at sea.</p><div class="pillar-cta">See gear picks →</div>
-        </a>
+    <div class="stops">
+      <div class="stop">
+        <div class="stop-eyebrow">FROM THE BRIDGE</div>
+        <h2>Every guide, charted before you sail</h2>
+        <p>Ship comparisons, booking timing, and port guides — planned the way we'd plan our own trip, because it usually is.</p>
+      </div>
+      <div class="stop" style="margin-top:260px;">
+        <div class="stop-eyebrow">PAST THE BOW</div>
+        <h2>Real ports. Real excursions. Real tips.</h2>
+        <p>No press-kit copy. Every recommendation reflects what's actually worth booking, and what's better left alone.</p>
+      </div>
+      <div class="stop" style="margin-top:260px;">
+        <div class="stop-eyebrow">FAMILY-FIRST</div>
+        <h2>Tested by a very opinionated toddler</h2>
+        <p>Packing lists, cabin setups, and pacing advice built around what actually works with young kids on board.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section" style="padding-top:8px;">
-    <div class="wrap">
-      <div class="section-head">
-        <div><h2>Latest guides</h2><p>Hover a card for the bearing — a small nod to the theme, not a real coordinate.</p></div>
-        <a class="section-link" href="cruise-lines/disney-fantasy-vs-wish.html">View all guides →</a>
-      </div>
-      <div class="card-grid">
-        <a class="article-card" href="cruise-lines/disney-fantasy-vs-wish.html">
-          <div class="card-media m1"><div class="card-tag">Cruise Lines</div><div class="card-bearing mono">BRG 042°</div></div>
-          <div class="card-body"><h3>Disney Fantasy vs. Disney Wish: Which Is Better for Families?</h3><p>Tonnage, kids' clubs, and which ship actually suits a toddler crew.</p><div class="card-meta"><span>12 MIN</span><span>UPDATED AUG 2026</span></div></div>
-        </a>
-        <a class="article-card" href="ports/castaway-cay.html">
-          <div class="card-media m2"><div class="card-tag">Ports</div><div class="card-bearing mono">BRG 118°</div></div>
-          <div class="card-body"><h3>Castaway Cay: Family Beach vs. Serenity Bay</h3><p>Which beach to pick and toddler-specific tips.</p><div class="card-meta"><span>9 MIN</span><span>NEW</span></div></div>
-        </a>
-        <a class="article-card" href="ports/nassau.html">
-          <div class="card-media m2"><div class="card-tag">Ports</div><div class="card-bearing mono">BRG 095°</div></div>
-          <div class="card-body"><h3>Nassau Shore Excursions Worth Booking as a Family</h3><p>Swimming pigs, snorkeling, and what to skip with young kids.</p><div class="card-meta"><span>7 MIN</span><span>NEW</span></div></div>
-        </a>
-        <a class="article-card" href="planning/best-time-to-book-disney-cruise.html">
-          <div class="card-media m3"><div class="card-tag">Planning</div><div class="card-bearing mono">BRG 275°</div></div>
-          <div class="card-body"><h3>Best Time to Book a Disney Cruise (2026–2027)</h3><p>When itineraries release, what actually moves the price, and the deposit timeline.</p><div class="card-meta"><span>8 MIN</span><span>UPDATED AUG 2026</span></div></div>
-        </a>
-        <a class="article-card" href="planning/toddler-packing-list.html">
-          <div class="card-media m4"><div class="card-tag">Gear</div><div class="card-bearing mono">BRG 356°</div></div>
-          <div class="card-body"><h3>Toddler Packing List for a Family Cruise</h3><p>What earned its spot in the suitcase — and what we left behind.</p><div class="card-meta"><span>7 MIN</span><span>UPDATED AUG 2026</span></div></div>
-        </a>
-      </div>
+<!-- ======================= STATS ======================= -->
+<section class="stats-band scene">
+  <div class="wrap">
+    <div class="stat-grid">
+      <div class="stat-cell"><div class="stat-num" data-count="37">0</div><div class="stat-label">Ships &amp; itineraries researched</div></div>
+      <div class="stat-cell"><div class="stat-num" data-count="1240" data-prefix="$">0</div><div class="stat-label">Avg. savings found vs. list fare</div></div>
+      <div class="stat-cell"><div class="stat-num" data-count="14">0</div><div class="stat-label">Ports covered, updated each sailing</div></div>
+      <div class="stat-cell"><div class="stat-num" data-count="1">0</div><div class="stat-label">Very opinionated toddler co-pilot</div></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="cta-band">
-    <div class="wrap cta-band-inner">
-      <div><h2>Port guides &amp; deal alerts, straight to your inbox</h2><p>One email a week. No spam, no fake urgency.</p></div>
-      <form class="cta-form" id="newsletterForm">
-        <input type="email" name="email" id="newsletterEmail" placeholder="you@email.com" aria-label="Email address" required>
-        <button type="submit">Subscribe</button>
-      </form>
-      <p class="cta-form-note" id="newsletterMsg" style="display:none; font-size:12.5px; color:#B9CCDA; margin-top:10px;"></p>
+<!-- ======================= PILLARS — real links ======================= -->
+<section class="pillars scene">
+  <div class="wrap">
+    <div class="pillars-head">
+      <div class="stop-eyebrow">START HERE</div>
+      <h2>Three ways to plan smarter</h2>
     </div>
-  </section>
-</main>
+    <div class="pillar-grid">
+      <a class="tilt-card" href="cruise-lines/disney-fantasy-vs-wish.html">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M3 16l9-3 9 3-1 3H4l-1-3z" stroke="#F3D591" stroke-width="1.4"/><path d="M12 13V4M9 6h6" stroke="#F3D591" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <h3>Cruise Lines</h3><p>Ship-by-ship reviews built for families, not brochures.</p>
+      </a>
+      <a class="tilt-card" href="ports/nassau.html">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z" stroke="#F3D591" stroke-width="1.4"/><circle cx="12" cy="9" r="2.2" stroke="#F3D591" stroke-width="1.4"/></svg>
+        <h3>Port Guides</h3><p>What to book, what to skip, before you ever dock.</p>
+      </a>
+      <a class="tilt-card" href="planning/best-time-to-book-disney-cruise.html">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="1" stroke="#F3D591" stroke-width="1.4"/><path d="M3 9h18M8 3v3M16 3v3" stroke="#F3D591" stroke-width="1.4"/></svg>
+        <h3>Planning Guides</h3><p>Timing, budgeting, and packing — the practical side.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= LATEST GUIDES — real content, real links ======================= -->
+<section class="guides scene">
+  <div class="wrap">
+    <div class="pillars-head">
+      <div class="stop-eyebrow">LATEST GUIDES</div>
+      <h2>Start reading</h2>
+    </div>
+    <div class="guide-grid">
+      <a class="guide-card" href="cruise-lines/disney-fantasy-vs-wish.html">
+        <div class="guide-tag">Cruise Lines</div>
+        <h3>Disney Fantasy vs. Disney Wish</h3>
+        <p>Tonnage, kids' clubs, and which ship actually suits a toddler crew.</p>
+      </a>
+      <a class="guide-card" href="ports/nassau.html">
+        <div class="guide-tag">Ports</div>
+        <h3>Nassau Excursions Worth Booking</h3>
+        <p>Swimming pigs, Pearl Island, and the Atlantis sightseeing tour.</p>
+      </a>
+      <a class="guide-card" href="ports/castaway-cay.html">
+        <div class="guide-tag">Ports</div>
+        <h3>Castaway Cay: Which Beach to Pick</h3>
+        <p>Family Beach vs. Serenity Bay — real toddler-tested tips.</p>
+      </a>
+      <a class="guide-card" href="planning/toddler-packing-list.html">
+        <div class="guide-tag">Planning</div>
+        <h3>Toddler Cruise Packing List</h3>
+        <p>What earned suitcase space — and what we left behind.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= NEWSLETTER (real, working) ======================= -->
+<section class="cta-band3d scene">
+  <div class="wrap cta-band-inner">
+    <div><h2>Port guides &amp; deal alerts, straight to your inbox</h2><p>One email a week. No spam, no fake urgency.</p></div>
+    <form class="cta-form" id="newsletterForm">
+      <input type="email" name="email" id="newsletterEmail" placeholder="you@email.com" aria-label="Email address" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+  <p class="cta-form-note" id="newsletterMsg" style="display:none; font-size:12.5px; color:#B9CCDA; text-align:center; margin-top:10px;"></p>
+</section>
 
 <footer>
   <div class="wrap">
@@ -207,5 +243,6 @@
 </div>
 
 <script src="assets/js/main.js"></script>
+<script src="assets/js/home-3d.js"></script>
 </body>
 </html>
