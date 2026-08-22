@@ -182,7 +182,7 @@ body.home-3d::before{
 .home-3d footer{background:var(--paper);}
 
 @media (prefers-reduced-motion:reduce){
-  .home-3d *{animation:none !important; transition:none !important;}
+  .home-3d .badge, .home-3d .voyage-ship, .reveal-line, .home-3d .foil{animation:none !important; transition:none !important;}
   .reveal-line{transform:none !important;}
   .stop, .stat-cell, .tilt-card{opacity:1 !important; translate:0 !important; transform:none !important;}
   .home-3d .foil{background:var(--h3d-brass-light); -webkit-text-fill-color:initial; color:var(--h3d-brass-light);}
