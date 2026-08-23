@@ -16,8 +16,14 @@
  * the latter can silently fail when the script runs as a Web App
  * triggered externally, since there's no "active" sheet UI context
  * outside the editor. openById() is the reliable pattern for this.
+ *
+ * NOTE: This file is a reference copy in a PUBLIC repo. The real
+ * Sheet ID intentionally stays a placeholder here — it's only ever
+ * pasted directly into the live Apps Script editor at script.google.com,
+ * never committed. If you're pasting this into the editor fresh, replace
+ * the line below with your real ID there, not here.
  */
-var SHEET_ID = '1rR4YPHnFWcb98iY0b0AYmhiq-kkcF1vSsjpScwjGvEs';
+var SHEET_ID = 'PASTE_YOUR_SPREADSHEET_ID_HERE';
 var NOTIFY_EMAIL = 'bridgeandbowtravel@gmail.com';
 
 function doPost(e) {
