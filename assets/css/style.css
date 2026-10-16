@@ -195,6 +195,16 @@
   .prose li{margin-bottom:8px;}
   .prose ul.timeline{padding-left:0; max-width:none;}
   .prose ul.timeline li{margin-bottom:0;}
+  /* ---- Section landing pages ---- */
+  .hub-lede{font-size:17px; color:var(--ink-soft); max-width:60ch; margin:14px 0 0; line-height:1.6;}
+  .hub-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:22px; margin:8px 0 34px;}
+  .hub-card{display:flex; flex-direction:column; gap:10px; background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); padding:24px 24px 22px; transition:box-shadow .2s, transform .2s, border-color .2s;}
+  .hub-card:hover{box-shadow:0 16px 32px rgba(16,28,44,.12); transform:translateY(-4px); border-color:var(--brass);}
+  .hub-kicker{font-family:'Fragment Mono',monospace; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--brass-dark);}
+  .hub-card h2{font-size:21px; line-height:1.25;}
+  .hub-card p{font-size:14.5px; color:var(--ink-soft); margin:0; flex:1; line-height:1.6;}
+  .hub-go{font-family:'Fragment Mono',monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--brass-dark);}
+  .hub-more{margin:0 0 60px; font-size:14px; color:var(--ink-soft); display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
   figure.trip-photo{margin:26px 0;}
   figure.trip-photo img{width:100%; height:auto; border-radius:var(--radius);}
   figure.trip-photo figcaption{font-size:12.5px; color:var(--ink-soft); margin-top:8px;}
