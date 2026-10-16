@@ -189,9 +189,38 @@
     <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
     <nav class="primary" id="nav">
       <a href="../index.html">Home</a>
-      <a href="../cruise-lines/index.html" aria-current="true">Cruise Lines</a>
-      <a href="../planning/index.html">Planning</a>
-      <a href="../ports/index.html">Ports</a>
+      <div class="nav-item has-sub">
+        <a href="../cruise-lines/index.html">Cruise Lines</a>
+        <button type="button" class="sub-toggle" aria-expanded="false" aria-label="Show Cruise Lines pages"><svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="submenu">
+          <a href="../cruise-lines/index.html">All cruise lines</a>
+          <a href="../cruise-lines/disney-destiny-3-night-toddler-review.html">Disney Destiny Review</a>
+          <a href="../cruise-lines/disney-destiny-photo-gallery.html">Destiny Photo Gallery</a>
+          <a href="../cruise-lines/disney-fantasy-vs-wish.html">Fantasy vs. Wish</a>
+        </div>
+      </div>
+      <div class="nav-item has-sub">
+        <a href="../planning/index.html">Planning</a>
+        <button type="button" class="sub-toggle" aria-expanded="false" aria-label="Show Planning pages"><svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="submenu">
+          <a href="../planning/index.html">All planning</a>
+          <a href="../planning/best-time-to-book-disney-cruise.html">When to Book</a>
+          <a href="../planning/disney-cruise-with-a-toddler-tips.html">Toddler Cruise Tips</a>
+          <a href="../planning/toddler-packing-list.html">Packing List</a>
+          <a href="../planning/halloween-on-the-high-seas-disney-cruise.html">Halloween on the High Seas</a>
+        </div>
+      </div>
+      <div class="nav-item has-sub">
+        <a href="../ports/index.html">Ports</a>
+        <button type="button" class="sub-toggle" aria-expanded="false" aria-label="Show Ports pages"><svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="submenu">
+          <a href="../ports/index.html">All ports</a>
+          <a href="../ports/port-everglades-fort-lauderdale.html">Port Everglades</a>
+          <a href="../ports/castaway-cay.html">Castaway Cay</a>
+          <a href="../ports/nassau.html">Nassau</a>
+        </div>
+      </div>
+      <a href="../cruise-lines/disney-destiny-photo-gallery.html" aria-current="true">Photos</a>
     </nav>
   </div>
 </header>
@@ -213,6 +242,7 @@
     <h2 class="gallery-h">The stateroom</h2>
     <div class="gallery">
       <figure class="gallery-item"><a href="../assets/img/trip/stateroom-verandah.jpg"><img src="../assets/img/trip/stateroom-verandah.jpg" alt="Verandah of a Disney Destiny stateroom with a white chair, small round table and a privacy divider" width="750" height="1000" loading="lazy"></a><figcaption><b>Our verandah</b>A midship verandah stateroom: a small table, a chair and a privacy divider between neighboring balconies.</figcaption></figure>
+      <figure class="gallery-item"><a href="../assets/img/trip/stateroom-interior.jpg"><img src="../assets/img/trip/stateroom-interior.jpg" alt="Disney Destiny stateroom with a made bed, a vanity desk with a lighted mirror and floor-length curtains over the balcony door" width="702" height="1400" loading="lazy"></a><figcaption><b>Inside the stateroom</b>From the cabin doorway: the bed, a vanity desk with a lighted mirror, and the curtains that cover the balcony door. The carpet has a fireworks-and-stars pattern.</figcaption></figure>
       <figure class="gallery-item"><a href="../assets/img/trip/stateroom-bathroom.jpg"><img src="../assets/img/trip/stateroom-bathroom.jpg" alt="Stateroom bathroom with a lighted mirror, white sink, toilet, towel ring and wall shelves" width="750" height="1000" loading="lazy"></a><figcaption><b>The stateroom bathroom</b>A sink with a lighted mirror at left, the toilet at the back, and a towel ring and shelves on the wall.</figcaption></figure>
       <figure class="gallery-item"><a href="../assets/img/trip/stateroom-towel-crab.jpg"><img src="../assets/img/trip/stateroom-towel-crab.jpg" alt="Gray towel folded into a crab shape with two claws on a white hotel-style bed" width="1128" height="912" loading="lazy"></a><figcaption><b>Towel crab on our bed</b>The stateroom crew left it on our last night aboard.</figcaption></figure>
     </div>
@@ -223,20 +253,26 @@
       <figure class="gallery-item"><a href="../assets/img/trip/destiny-pool-deck.jpg"><img src="../assets/img/trip/destiny-pool-deck.jpg" alt="Blue pool on the upper deck with water slides and a lifeguard in the background" width="1400" height="1050" loading="lazy"></a><figcaption><b>A pool on the upper deck</b>One of the upper-deck pools with the water slide towers behind it and a lifeguard on duty at the rail.</figcaption></figure>
       <figure class="gallery-item"><a href="../assets/img/trip/destiny-night-pool-deck.jpg"><img src="../assets/img/trip/destiny-night-pool-deck.jpg" alt="Rows of blue lighted loungers on the upper pool deck at night" width="750" height="1000" loading="lazy"></a><figcaption><b>The pool deck at night</b>Blue-lit loungers on the upper deck after dark, a good place to walk with a toddler before bedtime.</figcaption></figure>
       <figure class="gallery-item"><a href="../assets/img/trip/destiny-fireworks.jpg"><img src="../assets/img/trip/destiny-fireworks.jpg" alt="Fireworks bursting above the upper decks of the ship with guests silhouetted at the rail" width="852" height="1000" loading="lazy"></a><figcaption><b>Fireworks at sea</b>Fireworks over the upper decks with guests watching from the rails on pirate night.</figcaption></figure>
-    </div>
+          <figure class="gallery-item"><a href="../assets/img/trip/family-at-the-rail.jpg"><img src="../assets/img/trip/family-at-the-rail.jpg" alt="A father holding his young daughter at the ship railing, looking out over calm blue water" width="750" height="1000" loading="lazy"></a><figcaption><b>Looking out to sea</b>A quiet moment at the rail of the upper deck, looking over open water.</figcaption></figure>
+      <figure class="gallery-item"><a href="../assets/img/trip/splash-area-water-curtain.jpg"><img src="../assets/img/trip/splash-area-water-curtain.jpg" alt="Shallow splash pool with a curtain of falling water at one end and ocean views beyond the rail" width="832" height="1100" loading="lazy"></a><figcaption><b>The splash area</b>A curtain of falling water at one end of the shallow pool, the spot for toddlers who are not potty trained.</figcaption></figure>
+      <figure class="gallery-item"><a href="../assets/img/trip/splash-area-fountain.jpg"><img src="../assets/img/trip/splash-area-fountain.jpg" alt="Shallow splash pool with a white fountain jet and the port visible beyond the rail" width="708" height="1100" loading="lazy"></a><figcaption><b>A fountain in the shallow water</b>A fountain jet in the splash area, with the port beyond the rail.</figcaption></figure>
+</div>
     <h2 class="gallery-h">Castaway Cay</h2>
     <div class="gallery">
       <figure class="gallery-item"><a href="../assets/img/trip/destiny-at-castaway-cay.jpg"><img src="../assets/img/trip/destiny-at-castaway-cay.jpg" alt="The Disney Destiny docked alongside the pier at Castaway Cay under a blue sky" width="1200" height="927" loading="lazy"></a><figcaption><b>The Destiny at Castaway Cay</b>The ship docks at the island&#x27;s pier, so there is no tender boat: you walk off the ship onto the island.</figcaption></figure>
       <figure class="gallery-item"><a href="../assets/img/trip/castaway-cay-welcome-sign.jpg"><img src="../assets/img/trip/castaway-cay-welcome-sign.jpg" alt="Welcome to Castaway Cay sign framed by palm trees" width="915" height="1000" loading="lazy"></a><figcaption><b>Castaway Cay welcome sign</b>The welcome sign among the palms as you come ashore.</figcaption></figure>
+      <figure class="gallery-item"><a href="../assets/img/trip/castaway-cay-buoy-sign.jpg"><img src="../assets/img/trip/castaway-cay-buoy-sign.jpg" alt="Large gray buoy-shaped sign reading Castaway Cay Bahamas with the coordinates Lat 26.1 Long 77.5" width="806" height="1000" loading="lazy"></a><figcaption><b>The Castaway Cay buoy</b>A giant buoy marks the island, with its coordinates stenciled on the tower: Lat. 26.1, Long. 77.5.</figcaption></figure>
       <figure class="gallery-item"><a href="../assets/img/trip/castaway-cay-beach-umbrellas.jpg"><img src="../assets/img/trip/castaway-cay-beach-umbrellas.jpg" alt="Colorful beach umbrellas and loungers on the sand with calm water beyond" width="1400" height="1050" loading="lazy"></a><figcaption><b>Umbrellas along the beach</b>Colorful umbrellas and loungers line the sand, and the water near the shore looked calm.</figcaption></figure>
       <figure class="gallery-item"><a href="../assets/img/trip/castaway-cay-beach-palm.jpg"><img src="../assets/img/trip/castaway-cay-beach-palm.jpg" alt="Rows of beach loungers and umbrellas under a palm tree at Castaway Cay" width="1400" height="1050" loading="lazy"></a><figcaption><b>Loungers under the palms</b>Rows of loungers and umbrellas stretching along the beach beneath a palm tree.</figcaption></figure>
+      <figure class="gallery-item"><a href="../assets/img/trip/castaway-cay-beach-cove.jpg"><img src="../assets/img/trip/castaway-cay-beach-cove.jpg" alt="Small sandy cove on Castaway Cay with a kayak, a water bike and a thatched-roof beach building among palm trees" width="1200" height="730" loading="lazy"></a><figcaption><b>A quieter cove</b>A sandy cove with a kayak and a water bike on the beach, and a thatched-roof beach building behind the palms.</figcaption></figure>
       <figure class="gallery-item"><a href="../assets/img/trip/castaway-cay-tram.jpg"><img src="../assets/img/trip/castaway-cay-tram.jpg" alt="Open-sided tram carrying guests along a palm-lined road" width="1400" height="1167" loading="lazy"></a><figcaption><b>The island tram</b>The open-air tram that runs along the island&#x27;s road. We rode it both ways during our day.</figcaption></figure>
       <figure class="gallery-item"><a href="../assets/img/trip/destiny-from-castaway-cay.jpg"><img src="../assets/img/trip/destiny-from-castaway-cay.jpg" alt="The Disney Destiny seen in the distance from a rope-lined path on Castaway Cay" width="750" height="1000" loading="lazy"></a><figcaption><b>Back toward the ship</b>The Destiny in the distance from the island shore, past palms and a rope-and-post path.</figcaption></figure>
     </div>
     <h2 class="gallery-h">Nassau</h2>
     <div class="gallery">
       <figure class="gallery-item"><a href="../assets/img/trip/nassau-atlantis-view.jpg"><img src="../assets/img/trip/nassau-atlantis-view.jpg" alt="Atlantis resort towers across Nassau harbor seen from the ship" width="1400" height="1050" loading="lazy"></a><figcaption><b>Atlantis from the ship</b>The Atlantis resort towers across Nassau harbor, seen from the ship. We stayed aboard in Nassau this time.</figcaption></figure>
-    </div>
+          <figure class="gallery-item"><a href="../assets/img/trip/porthole-view-port.jpg"><img src="../assets/img/trip/porthole-view-port.jpg" alt="Silhouette of a young child with hands on a round porthole window, looking out at a pier with another cruise ship alongside at Nassau" width="825" height="1100" loading="lazy"></a><figcaption><b>A porthole view of Nassau's cruise port</b>A little one with both hands on a round porthole, watching the pier and another cruise ship at the Nassau cruise port.</figcaption></figure>
+</div>
     <p class="hub-more">Keep exploring: <a class="pill-btn" href="disney-destiny-3-night-toddler-review.html">Destiny review</a> <a class="pill-btn" href="../ports/index.html">Ports</a> <a class="pill-btn" href="../planning/index.html">Planning</a></p>
   </div>
 </main>
@@ -251,8 +287,8 @@
         </div>
         <p style="font-size:13px; color:var(--ink-soft); max-width:30ch;">Family cruise planning, charted one sailing at a time.</p>
       </div>
-      <div><h3>Cruise Lines</h3><ul><li><a href="disney-destiny-3-night-toddler-review.html">Disney Destiny Review</a></li><li><a href="disney-fantasy-vs-wish.html">Fantasy vs. Wish</a></li><li><span style="color:var(--ink-soft);">Royal Caribbean <em style="font-style:normal;font-size:11px;">(soon)</em></span></li></ul></div>
-      <div><h3>Planning</h3><ul><li><a href="../planning/best-time-to-book-disney-cruise.html">Booking Timing</a></li><li><a href="../planning/toddler-packing-list.html">Packing List</a></li><li><a href="../planning/disney-cruise-with-a-toddler-tips.html">Toddler Cruise Tips</a></li></ul></div>
+      <div><h3>Cruise Lines</h3><ul><li><a href="disney-destiny-3-night-toddler-review.html">Disney Destiny Review</a></li><li><a href="disney-fantasy-vs-wish.html">Fantasy vs. Wish</a></li><li><a href="disney-destiny-photo-gallery.html">Photo Gallery</a></li><li><span style="color:var(--ink-soft);">Royal Caribbean <em style="font-style:normal;font-size:11px;">(soon)</em></span></li></ul></div>
+      <div><h3>Planning</h3><ul><li><a href="../planning/best-time-to-book-disney-cruise.html">Booking Timing</a></li><li><a href="../planning/toddler-packing-list.html">Packing List</a></li><li><a href="../planning/disney-cruise-with-a-toddler-tips.html">Toddler Cruise Tips</a></li><li><a href="../planning/halloween-on-the-high-seas-disney-cruise.html">Halloween on the High Seas</a></li></ul></div>
       <div><h3>Ports</h3><ul><li><a href="../ports/port-everglades-fort-lauderdale.html">Port Everglades</a></li><li><a href="../ports/castaway-cay.html">Castaway Cay</a></li><li><a href="../ports/nassau.html">Nassau</a></li></ul></div>
       <div><h3>About</h3><ul><li><a href="../about.html">Our Story</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy.html">Privacy &amp; Cookies</a></li></ul></div>
     </div>

@@ -31,6 +31,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ---- Nav dropdowns (touch / keyboard) ----
+  document.querySelectorAll('nav.primary .nav-item.has-sub').forEach(item => {
+    const btn = item.querySelector('.sub-toggle');
+    if (!btn) return;
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = item.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) document.querySelectorAll('nav.primary .nav-item.open').forEach(o => {
+        if (o !== item) { o.classList.remove('open'); o.querySelector('.sub-toggle').setAttribute('aria-expanded', 'false'); }
+      });
+    });
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && item.classList.contains('open')) {
+        item.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); btn.focus();
+      }
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('nav.primary .nav-item')) return;
+    document.querySelectorAll('nav.primary .nav-item.open').forEach(o => {
+      o.classList.remove('open'); o.querySelector('.sub-toggle').setAttribute('aria-expanded', 'false');
+    });
+  });
+
   // ---- Scroll-reveal for cards, pillars, stats ----
   document.querySelectorAll('.pillar, .article-card, .stat').forEach(el => el.classList.add('reveal'));
   const revealIo = new IntersectionObserver((entries) => {

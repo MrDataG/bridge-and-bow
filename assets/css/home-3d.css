@@ -188,3 +188,10 @@ body.home-3d::before{
   .home-3d .foil{background:var(--h3d-brass-light); -webkit-text-fill-color:initial; color:var(--h3d-brass-light);}
   #loader{display:none;}
 }
+
+.home-3d nav.primary .sub-toggle{color:var(--h3d-paper-dim);}
+.home-3d nav.primary .submenu{background:var(--h3d-navy-deep); border-color:var(--h3d-glass-line);}
+.home-3d nav.primary .submenu a{color:var(--h3d-paper-dim);}
+.home-3d nav.primary .submenu a:first-child{color:var(--h3d-brass-light);}
+.home-3d nav.primary .submenu a:hover, .home-3d nav.primary .submenu a:focus-visible{background:rgba(255,255,255,.08); color:#fff;}
+@media (max-width:900px){ .home-3d nav.primary .submenu{background:rgba(255,255,255,.06);} }
