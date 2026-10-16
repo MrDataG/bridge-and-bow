@@ -81,6 +81,48 @@
     .menu-toggle{display:block;}
   }
 
+  /* ============ NAV DROPDOWNS ============ */
+  nav.primary .nav-item{position:relative; display:flex; align-items:center;}
+  nav.primary .nav-item > a{padding-right:4px;}
+  nav.primary .nav-item > a[aria-current="true"]::after{right:4px;}
+  nav.primary .sub-toggle{
+    background:none; border:none; cursor:pointer; color:var(--ink-soft); width:24px; height:34px;
+    display:flex; align-items:center; justify-content:center; border-radius:8px; padding:0;
+  }
+  nav.primary .sub-toggle:hover{color:var(--ink);}
+  nav.primary .sub-toggle svg{transition:transform .2s ease;}
+  nav.primary .nav-item.open .sub-toggle svg{transform:rotate(180deg);}
+  nav.primary .submenu{
+    position:absolute; top:100%; left:0; min-width:250px; z-index:60;
+    background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:6px;
+    box-shadow:0 18px 40px rgba(16,28,44,.16);
+    opacity:0; visibility:hidden; transform:translateY(-6px); pointer-events:none;
+    transition:opacity .16s ease, transform .16s ease, visibility .16s;
+  }
+  nav.primary .submenu a{
+    display:block; width:100%; box-sizing:border-box; padding:10px 12px; border-radius:8px; white-space:nowrap;
+    color:var(--ink-soft); letter-spacing:.04em; text-transform:none; font-size:12.5px;
+  }
+  nav.primary .submenu a:first-child{font-weight:700; color:var(--brass-dark);}
+  nav.primary .submenu a:hover, nav.primary .submenu a:focus-visible{background:var(--paper-2); color:var(--ink);}
+  @media (min-width:901px){
+    nav.primary .nav-item:hover .submenu, nav.primary .nav-item:focus-within .submenu, nav.primary .nav-item.open .submenu{
+      opacity:1; visibility:visible; transform:translateY(0); pointer-events:auto;
+    }
+    nav.primary .nav-item::after{content:""; position:absolute; left:0; right:0; top:100%; height:10px;}
+  }
+  @media (max-width:900px){
+    nav.primary .nav-item{flex-wrap:wrap;}
+    nav.primary .nav-item > a{flex:1 1 auto;}
+    nav.primary .sub-toggle{width:44px; height:44px;}
+    nav.primary .submenu{
+      position:static; flex:0 0 100%; min-width:0; box-shadow:none; border:none; background:var(--paper-2);
+      border-radius:9px; margin:0 0 6px; padding:4px; display:none; opacity:1; visibility:visible; transform:none; pointer-events:auto;
+    }
+    nav.primary .nav-item.open .submenu{display:block;}
+    nav.primary .submenu a{white-space:normal; padding:12px 14px;}
+  }
+
   /* ============ HERO ============ */
   .hero{
     position:relative; overflow:hidden; color:var(--paper); padding:70px 0 0;
