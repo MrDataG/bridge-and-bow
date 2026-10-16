@@ -3,6 +3,23 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  // ---- GA4: track outbound Viator clicks (which page + which tour earns clicks) ----
+  document.addEventListener('click', (evt) => {
+    const link = evt.target.closest && evt.target.closest('a[href*="viator.com"]');
+    if (!link || typeof gtag !== 'function') return;
+    const item = link.closest('.excursion-item');
+    const nameEl = item && item.querySelector('.name');
+    let campaign = '';
+    try { campaign = new URL(link.href).searchParams.get('campaign') || ''; } catch (e) { /* malformed URL, leave blank */ }
+    gtag('event', 'viator_click', {
+      tour_name: nameEl ? nameEl.textContent.trim() : (link.textContent || '').trim().slice(0, 80),
+      campaign: campaign,
+      page_path: window.location.pathname,
+      link_url: link.href,
+      transport_type: 'beacon'
+    });
+  });
+
   // ---- Mobile menu toggle ----
   const menuToggle = document.getElementById('menuToggle');
   const nav = document.getElementById('nav');
