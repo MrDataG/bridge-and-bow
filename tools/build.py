@@ -108,11 +108,22 @@ def render_footer(page):
     </div>
     <div class="disclosure">
       <span><b>Affiliate disclosure:</b> Bridge &amp; Bow Travel earns a commission on bookings made through some links on this site, at no extra cost to you.</span>
-      <a href="{a("privacy.html")}">Privacy &amp; Cookie Policy</a>
+      <span><a href="{a("privacy.html")}">Privacy &amp; Cookie Policy</a> · <a href="#" data-cookie-settings>Cookie settings</a></span>
     </div>
     <div class="copyright">© 2026 Bridge &amp; Bow Travel. All rights reserved.</div>
   </div>
 </footer>'''
+
+
+def render_banner(page):
+    return f'''<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie choices">
+  <svg class="icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="#B9862F" stroke-width="2"/><circle cx="18" cy="18" r="2" fill="#B9862F"/><circle cx="28" cy="16" r="2" fill="#B9862F"/><circle cx="30" cy="26" r="2" fill="#B9862F"/><circle cx="22" cy="30" r="2" fill="#B9862F"/></svg>
+  <p>We only use analytics cookies if you accept them. Partner sites you click through to may set their own cookies. See our <a style="text-decoration:underline;" href="{rel(page["path"], "privacy.html")}">Privacy &amp; Cookie Policy</a>.</p>
+  <div class="actions">
+    <button class="cookie-btn" type="button" data-cookie-choice="essential">Essential only</button>
+    <button class="cookie-btn accept" type="button" data-cookie-choice="all">Accept all</button>
+  </div>
+</div>'''
 
 
 # ---------------------------------------------------------------- hubs + home
@@ -242,6 +253,14 @@ def build_page(page):
     text, n = re.subn(r"<footer>.*?</footer>", lambda m: render_footer(page), text, count=1, flags=re.S)
     if n != 1:
         ERRORS.append(f"{path}: footer not found")
+    text, n = re.subn(r'<div class="cookie-banner" id="cookieBanner".*?</div>\n</div>', lambda m: render_banner(page), text, count=1, flags=re.S)
+    if n != 1:
+        # Some pages were missing the banner entirely: add it just before the main.js script.
+        text, n = re.subn(r'(<script src="[^"]*assets/js/main\.js)', lambda m: render_banner(page) + "\n\n" + m.group(1), text, count=1)
+        if n != 1:
+            ERRORS.append(f"{path}: cookie banner not found and no main.js anchor to add it")
+    if "googletagmanager.com" in text:
+        ERRORS.append(f"{path}: loads Google Analytics directly; it must only load through assets/js/analytics.js")
     if page["kind"] == "hub":
         text = marker_sub(text, "hub", render_hub_cards(page["section"], path),
                           r'<div class="hub-grid">\n?(.*?)\n?\s*</div>\n\s*<p class="hub-more">', path)

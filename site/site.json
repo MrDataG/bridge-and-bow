@@ -2,7 +2,7 @@
   "base_url": "https://bridgeandbowtravel.com",
   "name": "Bridge & Bow Travel",
   "default_og_image": "assets/img/social-card.png",
-  "asset_version": "20261017a",
+  "asset_version": "20261017b",
   "cruise_lines": ["Disney Cruise Line", "Royal Caribbean"],
   "sections": [
     {"id": "cruise-lines", "label": "Cruise Lines", "all_label": "All cruise lines", "index": "cruise-lines/index.html"},

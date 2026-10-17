@@ -116,19 +116,30 @@ document.addEventListener('DOMContentLoaded', () => {
   onScroll();
 
   // ---- Cookie consent banner ----
+  // Analytics (Google Analytics) only runs after "Accept all". See assets/js/analytics.js.
   const cookieBanner = document.getElementById('cookieBanner');
   if (cookieBanner) {
-    const consentKey = 'bnb_cookie_consent';
-    let alreadyChosen = null;
-    try { alreadyChosen = localStorage.getItem(consentKey); } catch (e) { /* storage blocked, fall through and show banner */ }
-    if (!alreadyChosen) {
+    const consent = window.bnbConsent;
+    const chosen = consent ? consent.choice() : null;
+    const hasChoice = chosen === 'all' || chosen === 'essential';
+    if (!hasChoice) {
       setTimeout(() => cookieBanner.classList.add('show'), 900);
     }
-    cookieBanner.querySelectorAll('[data-cookie-dismiss]').forEach(btn => {
+    cookieBanner.querySelectorAll('[data-cookie-choice]').forEach(btn => {
       btn.addEventListener('click', () => {
-        try { localStorage.setItem(consentKey, 'dismissed'); } catch (e) { /* storage blocked, banner will just reappear next visit */ }
+        if (consent) {
+          if (btn.getAttribute('data-cookie-choice') === 'all') consent.accept();
+          else consent.essentialOnly();
+        }
         cookieBanner.classList.remove('show');
       });
+    });
+    // "Cookie settings" link in the footer lets visitors change their choice.
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest && e.target.closest('[data-cookie-settings]');
+      if (!link) return;
+      e.preventDefault();
+      cookieBanner.classList.add('show');
     });
   }
 
