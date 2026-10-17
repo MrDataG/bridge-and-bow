@@ -195,3 +195,20 @@ body.home-3d::before{
 .home-3d nav.primary .submenu a:first-child{color:var(--h3d-brass-light);}
 .home-3d nav.primary .submenu a:hover, .home-3d nav.primary .submenu a:focus-visible{background:rgba(255,255,255,.08); color:#fff;}
 @media (max-width:900px){ .home-3d nav.primary .submenu{background:rgba(255,255,255,.06);} }
+
+/* ===== WHERE WE'VE SAILED (home) ===== */
+.sailed{padding:20px 0 40px;}
+.sailed-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
+@media (max-width:760px){.sailed-grid{grid-template-columns:1fr;}}
+.sailed-card{
+  display:block; text-decoration:none; overflow:hidden;
+  background:linear-gradient(160deg, var(--h3d-glass), rgba(11,28,54,.7));
+  border:1px solid var(--h3d-glass-line); border-radius:16px;
+  transition:transform .2s, box-shadow .3s, border-color .3s;
+}
+.sailed-card:hover{transform:translateY(-4px); box-shadow:0 24px 48px rgba(0,0,0,.38); border-color:rgba(243,213,145,.45);}
+.sailed-card img{display:block; width:100%; height:auto; aspect-ratio:4/3; object-fit:cover;}
+.sailed-body{padding:22px 24px 26px;}
+.sailed-card h3{font-size:22px; color:var(--paper); font-family:'Newsreader',serif; line-height:1.25;}
+.sailed-card p{font-size:14px; color:var(--h3d-paper-dim); margin-top:10px; line-height:1.65;}
+.sailed-go{display:inline-block; margin-top:14px; font-family:'Fragment Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--h3d-brass-light);}
