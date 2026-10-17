@@ -32,28 +32,36 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ---- Nav dropdowns (touch / keyboard) ----
-  document.querySelectorAll('nav.primary .nav-item.has-sub').forEach(item => {
-    const btn = item.querySelector('.sub-toggle');
-    if (!btn) return;
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const open = item.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if (open) document.querySelectorAll('nav.primary .nav-item.open').forEach(o => {
-        if (o !== item) { o.classList.remove('open'); o.querySelector('.sub-toggle').setAttribute('aria-expanded', 'false'); }
-      });
-    });
-    item.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && item.classList.contains('open')) {
-        item.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); btn.focus();
-      }
-    });
-  });
-  document.addEventListener('click', (e) => {
-    if (e.target.closest('nav.primary .nav-item')) return;
+  // One delegated listener on the whole document so it works on every page and every browser,
+  // including iOS Safari, regardless of when or how the nav markup was parsed.
+  const closeAllSubs = (except) => {
     document.querySelectorAll('nav.primary .nav-item.open').forEach(o => {
-      o.classList.remove('open'); o.querySelector('.sub-toggle').setAttribute('aria-expanded', 'false');
+      if (o === except) return;
+      o.classList.remove('open');
+      const t = o.querySelector('.sub-toggle');
+      if (t) t.setAttribute('aria-expanded', 'false');
     });
+  };
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest && e.target.closest('nav.primary .sub-toggle');
+    if (btn) {
+      e.preventDefault();
+      const item = btn.closest('.nav-item');
+      const open = !item.classList.contains('open');
+      closeAllSubs(item);
+      item.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      return;
+    }
+    if (!(e.target.closest && e.target.closest('nav.primary .nav-item'))) closeAllSubs(null);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const item = document.querySelector('nav.primary .nav-item.open');
+    if (!item) return;
+    const btn = item.querySelector('.sub-toggle');
+    closeAllSubs(null);
+    if (btn) btn.focus();
   });
 
   // ---- Scroll-reveal for cards, pillars, stats ----
