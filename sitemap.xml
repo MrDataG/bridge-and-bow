@@ -2,46 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://bridgeandbowtravel.com/</loc>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://bridgeandbowtravel.com/cruise-lines/disney-fantasy-vs-wish.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://bridgeandbowtravel.com/cruise-lines/royal-caribbean-voyager-of-the-seas-galveston-cozumel-review.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://bridgeandbowtravel.com/planning/best-time-to-book-disney-cruise.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://bridgeandbowtravel.com/planning/toddler-packing-list.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://bridgeandbowtravel.com/planning/halloween-on-the-high-seas-disney-cruise.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://bridgeandbowtravel.com/ports/castaway-cay.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://bridgeandbowtravel.com/ports/nassau.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://bridgeandbowtravel.com/ports/cozumel.html</loc>
+    <loc>https://bridgeandbowtravel.com/cruise-lines/</loc>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -52,10 +19,34 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://bridgeandbowtravel.com/ports/port-everglades-fort-lauderdale.html</loc>
+    <loc>https://bridgeandbowtravel.com/cruise-lines/royal-caribbean-voyager-of-the-seas-galveston-cozumel-review.html</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgeandbowtravel.com/cruise-lines/disney-fantasy-vs-wish.html</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bridgeandbowtravel.com/cruise-lines/disney-destiny-photo-gallery.html</loc>
     <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bridgeandbowtravel.com/planning/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgeandbowtravel.com/planning/best-time-to-book-disney-cruise.html</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bridgeandbowtravel.com/planning/disney-cruise-with-a-toddler-tips.html</loc>
@@ -64,34 +55,63 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://bridgeandbowtravel.com/planning/toddler-packing-list.html</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bridgeandbowtravel.com/planning/halloween-on-the-high-seas-disney-cruise.html</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bridgeandbowtravel.com/ports/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgeandbowtravel.com/ports/port-everglades-fort-lauderdale.html</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://bridgeandbowtravel.com/ports/castaway-cay.html</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgeandbowtravel.com/ports/nassau.html</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgeandbowtravel.com/ports/cozumel.html</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://bridgeandbowtravel.com/about.html</loc>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://bridgeandbowtravel.com/contact.html</loc>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://bridgeandbowtravel.com/privacy.html</loc>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
-  </url>
-  <url>
-    <loc>https://bridgeandbowtravel.com/cruise-lines/</loc>
-    <lastmod>2026-10-16</lastmod>
-  </url>
-  <url>
-    <loc>https://bridgeandbowtravel.com/planning/</loc>
-    <lastmod>2026-10-16</lastmod>
-  </url>
-  <url>
-    <loc>https://bridgeandbowtravel.com/ports/</loc>
-    <lastmod>2026-10-16</lastmod>
-  </url>
-  <url>
-    <loc>https://bridgeandbowtravel.com/cruise-lines/disney-destiny-photo-gallery.html</loc>
-    <lastmod>2026-10-16</lastmod>
   </url>
 </urlset>
