@@ -151,7 +151,7 @@
       "section": "planning",
       "kind": "guide",
       "title": "Best Time to Book a Disney Cruise (2026–2027)",
-      "desc": "When Disney Cruise Line releases new itineraries, how far out to book for the best price, and the deposit and payment timeline for upcoming sailings.",
+      "desc": "How far ahead to book a Disney cruise, how the deposit and final payment work, and how onboard reservations open, with where to check current sailings.",
       "og_image": "assets/img/social-card.png",
       "date": "2026-10-17",
       "published": "2026-08-12",
@@ -225,8 +225,8 @@
       "path": "planning/halloween-on-the-high-seas-disney-cruise.html",
       "section": "planning",
       "kind": "guide",
-      "title": "Halloween on the High Seas: Disney Cruise Guide",
-      "desc": "What Disney Cruise Line's Halloween sailings include, when they run, costume notes, our third-day trick-or-treat and what to check before you book.",
+      "title": "Halloween on the High Seas: Our Disney Destiny Sailing",
+      "desc": "What we saw on our Halloween on the High Seas sailing on the Disney Destiny, including the day-three trick-or-treat, and how to check a sailing first.",
       "og_image": "assets/img/social-card.png",
       "date": "2026-10-16",
       "published": "2026-10-16",
@@ -237,16 +237,16 @@
       "hub": {
         "kicker": "Seasonal",
         "title": "Halloween on the High Seas",
-        "blurb": "What Disney Cruise Line’s Halloween sailings include, when they run, costume notes and what to check before you book.",
+        "blurb": "What we saw on our Halloween on the High Seas sailing, including the day-three trick-or-treat, and how to check a sailing before you book.",
         "cta": "Read the guide →"
       },
       "home": {
         "order": 9,
         "tag": "Planning",
         "title": "Halloween on the High Seas",
-        "blurb": "What Disney's Halloween sailings include and what to check before you book."
+        "blurb": "Our Halloween sailing on the Disney Destiny and what to check before you book."
       },
-      "feed": "Halloween on the High Seas: Disney Cruise Guide"
+      "feed": "Halloween on the High Seas: Our Disney Destiny Sailing"
     },
     {
       "path": "ports/index.html",
