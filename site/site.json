@@ -342,6 +342,33 @@
       "feed": "Nassau Shore Excursions Worth Booking as a Family"
     },
     {
+      "path": "ports/galveston.html",
+      "section": "ports",
+      "kind": "guide",
+      "title": "Galveston Cruise Port Guide: Parking, Pier 10, Arrival",
+      "desc": "Galveston cruise port guide from a Houston family: how we parked, the walk with luggage and a stroller, Pier 10 directions and airport options.",
+      "og_image": "assets/img/trip/rc-galveston-port-view.jpg",
+      "date": "2026-10-17",
+      "published": "2026-10-17",
+      "freq": "monthly",
+      "priority": "0.8",
+      "nav": "Galveston",
+      "footer": "Galveston",
+      "hub": {
+        "kicker": "Royal Caribbean · Embark",
+        "title": "Galveston",
+        "blurb": "How we parked, the walk with luggage and a stroller, porters, and Royal Caribbean's directions from Hobby and IAH.",
+        "cta": "Read the guide →"
+      },
+      "home": {
+        "order": 10.5,
+        "tag": "Port Guide",
+        "title": "Galveston Cruise Port Guide",
+        "blurb": "Parking, porters and directions for a Royal Caribbean sailing."
+      },
+      "feed": "Galveston Cruise Port Guide: Parking, Pier 10, and Arrival Day"
+    },
+    {
       "path": "ports/cozumel.html",
       "section": "ports",
       "kind": "guide",
