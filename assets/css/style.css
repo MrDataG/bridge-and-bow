@@ -88,7 +88,9 @@
   nav.primary .sub-toggle{
     background:none; border:none; cursor:pointer; color:var(--ink-soft); width:24px; height:34px;
     display:flex; align-items:center; justify-content:center; border-radius:8px; padding:0;
+    position:relative; z-index:2; touch-action:manipulation; -webkit-tap-highlight-color:transparent;
   }
+  nav.primary .sub-toggle svg{pointer-events:none;}
   nav.primary .sub-toggle:hover{color:var(--ink);}
   nav.primary .sub-toggle svg{transition:transform .2s ease;}
   nav.primary .nav-item.open .sub-toggle svg{transform:rotate(180deg);}
