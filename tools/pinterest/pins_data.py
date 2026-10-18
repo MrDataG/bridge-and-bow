@@ -1,0 +1,253 @@
+"""
+Single source of truth for Bridge & Bow Pinterest pins.
+
+Used by make_pins.py (images) and build_queue.py (PinterestQueue.csv).
+
+RULES for editing this file
+  * Use only facts that are on the linked page (or stated by the owner).
+    Do not add prices, names, room numbers or other identifiers.
+  * pin_title <= 100 characters, desc <= 800 characters (Pinterest limits).
+    Lead with the search keyword; Pinterest truncates long titles in the feed.
+  * alt describes what is literally visible in the image.
+  * existing=True means the image already lives in assets/img/pins/ and is
+    not regenerated.
+"""
+
+SITE = "https://bridgeandbowtravel.com"
+
+BOARDS = {
+    "ports": "Cruise Ports & Shore Excursions for Families",
+    "royal": "Royal Caribbean Cruise With a Baby",
+    "halloween": "Disney Halloween on the High Seas",
+    "destiny": "Disney Destiny Cruise Review & Photos",
+    "tips": "Disney Cruise Tips for Toddlers",
+    "planning": "Disney Cruise Planning: Booking, Ships & Packing",
+}
+
+# Pages in posting priority order (pages with Viator links first).
+PAGES = [
+    dict(key="cozumel", path="/ports/cozumel.html", board="ports", campaign="cozumel-excursions"),
+    dict(key="nassau", path="/ports/nassau.html", board="ports", campaign="nassau-excursions"),
+    dict(key="port-everglades", path="/ports/port-everglades-fort-lauderdale.html", board="ports", campaign="port-everglades-guide"),
+    dict(key="royal-caribbean", path="/cruise-lines/royal-caribbean-voyager-of-the-seas-galveston-cozumel-review.html", board="royal", campaign="royal-caribbean-voyager-review"),
+    dict(key="halloween", path="/planning/halloween-on-the-high-seas-disney-cruise.html", board="halloween", campaign="halloween-on-the-high-seas"),
+    dict(key="galveston", path="/ports/galveston.html", board="ports", campaign="galveston-port-guide"),
+    dict(key="castaway-cay", path="/ports/castaway-cay.html", board="ports", campaign="castaway-cay-guide"),
+    dict(key="destiny-review", path="/cruise-lines/disney-destiny-3-night-toddler-review.html", board="destiny", campaign="destiny-review"),
+    dict(key="toddler-tips", path="/planning/disney-cruise-with-a-toddler-tips.html", board="tips", campaign="toddler-tips"),
+    dict(key="destiny-gallery", path="/cruise-lines/disney-destiny-photo-gallery.html", board="destiny", campaign="destiny-photo-gallery"),
+    dict(key="best-time-to-book", path="/planning/best-time-to-book-disney-cruise.html", board="planning", campaign="best-time-to-book"),
+    dict(key="packing-list", path="/planning/toddler-packing-list.html", board="planning", campaign="toddler-packing-list"),
+]
+
+# Each page has three variants. Variant 1 of cozumel, royal-caribbean and
+# halloween is Type "new" (the pages that had no pin yet); everything else is "evergreen".
+VARIANTS = {
+    "cozumel": [
+        dict(slug="cozumel-excursions-families", kind="photo", src="rc-cozumel-beach-toddler.jpg", focus=0.5, cover=[(467, 920, 34)],
+             image_title="Cozumel Excursions for Cruise Families", type="new", content="v1-beach-toddler",
+             pin_title="Cozumel Shore Excursions for Cruise Families: Beach Clubs, Snorkel Tours and More",
+             desc="Planning Cozumel with kids? This guide covers beach club day passes, snorkel and catamaran tours, a submarine and island tours, with real Viator listings and our own Royal Caribbean notes. We spent our April 2024 port day at Playa Mía Grand Beach Park with our 8-month-old. Check your ship's all-aboard time before you book anything.",
+             alt="A baby in a pink sun hat sitting in the sand facing the ocean on a Cozumel beach, with a sailboat and blue sky in the distance."),
+        dict(slug="cozumel-beach-club-day-passes", kind="photo", src="rc-cozumel-pier-arrival.jpg", focus=0.5, cover=[],
+             image_title="Cozumel Beach Club Day Passes, Snorkel Tours & More", content="v2-day-passes",
+             pin_title="Cozumel Beach Club Day Passes for Cruise Passengers (Viator Listings)",
+             desc="A look at beach club day passes in Cozumel, the kind of day with a beach, a pool and lunch included, plus snorkel and catamaran tours and island tours. Tours are researched on Viator, not all booked by us, so confirm what is included and your ship's all-aboard time before you pay.",
+             alt="View of the Cozumel cruise pier stretching out over blue water, seen from a ship, with the town and shoreline behind it."),
+        dict(slug="cozumel-baby-beach-day-playa-mia", kind="type", kicker="COZUMEL SHORE EXCURSIONS",
+             image_title="Cozumel With a Baby: Our Beach Day at Playa Mía Grand Beach Park", content="v3-baby-beach-day",
+             pin_title="Cozumel With a Baby: Our Beach Day at Playa Mía Grand Beach Park",
+             desc="What our April 2024 Cozumel port day looked like with an 8-month-old: Playa Mía Grand Beach Park, a beach with a pool and a lunch buffet included. We booked it once we were onboard. If you want a similar day, here is how to find beach club passes you can book ahead.",
+             alt="Navy pin with the text: Cozumel With a Baby: Our Beach Day at Playa Mía Grand Beach Park."),
+    ],
+    "nassau": [
+        dict(slug="nassau-stay-aboard-or-tour", existing=True, content="v1-stay-aboard",
+             pin_title="Nassau With a Toddler: Take a Shore Excursion or Stay Aboard?",
+             desc="We sailed the 4-day, 3-night Disney Destiny itinerary with a toddler and chose to stay aboard in Nassau because we had been before. Here is how we thought about it, plus family-friendly Nassau excursions if you do go ashore: swimming pigs, Pearl Island and a Queen's Staircase walking tour.",
+             alt="View across Nassau harbor to the Atlantis resort towers under a partly cloudy sky, seen from a cruise ship."),
+        dict(slug="nassau-shore-excursions-families", kind="type", kicker="NASSAU SHORE EXCURSIONS",
+             image_title="Nassau Shore Excursions for Families: Swimming Pigs, Pearl Island & More", content="v2-excursions",
+             pin_title="Nassau Shore Excursions for Families: Swimming Pigs, Pearl Island and More",
+             desc="Family-friendly Nassau shore excursions researched on Viator: a swimming pigs and snorkeling boat trip, a Pearl Island beach day with lunch, a Queen's Staircase walking tour and a sightseeing tour with an Atlantis photo stop. Nassau excursions are run by independent operators, so booking ahead can make sense. Confirm prices and your all-aboard time.",
+             alt="Navy pin with the text: Nassau Shore Excursions for Families: Swimming Pigs, Pearl Island and More."),
+        dict(slug="nassau-what-to-skip-young-kids", kind="type", kicker="NASSAU WITH YOUNG KIDS",
+             image_title="What to Skip in Nassau With Young Kids: ATV and Jet Ski Age Limits", content="v3-what-to-skip",
+             pin_title="Nassau With Young Kids: What to Skip (ATV and Jet Ski Tours Have Age Limits)",
+             desc="ATV and jet ski tours are popular in Nassau, but they usually have minimum age requirements, often 8 and up to ride and sometimes higher to drive. For toddlers and young kids, calmer snorkeling and beach club options tend to fit better. Always check the fine print on the listing.",
+             alt="Navy pin with the text: What to Skip in Nassau With Young Kids: ATV and Jet Ski Age Limits."),
+    ],
+    "port-everglades": [
+        dict(slug="port-everglades-embarkation", existing=True, content="v1-hour-by-hour",
+             pin_title="Port Everglades Embarkation Day, Hour by Hour (Disney Cruise With a Toddler)",
+             desc="How embarkation day went for us at Port Everglades on a Disney Cruise Line sailing in September 2026: we flew in from Houston, took the cruise line's airport transfer and boarded the same day with a toddler. Includes our timeline, what the transfer did for us and what we would tell a friend.",
+             alt="The Disney Destiny cruise ship seen from the pier through a chain-link fence at Port Everglades."),
+        dict(slug="port-everglades-same-day-fly-in", kind="photo", src="destiny-pier-port-everglades.jpg", focus=0.5, cover=[],
+             image_title="Flying In the Morning of Your Disney Cruise? Our Same-Day Fly-In", content="v2-same-day-fly-in",
+             pin_title="Same-Day Fly-In for a Disney Cruise: What Worked, and the Risk, at Port Everglades",
+             desc="We flew from Houston to Fort Lauderdale the morning of our Disney cruise and boarded the same day with a toddler. It worked for us, but there is no slack if a flight is delayed, and many cruisers are advised to fly in the day before. Here is the tradeoff.",
+             alt="The Disney Destiny alongside the pier at Port Everglades, seen through a chain-link fence with construction equipment beside the berth."),
+        dict(slug="port-everglades-toddler-guide", kind="photo", src="destiny-at-port-everglades.jpg", focus=0.5, cover=[],
+             image_title="Port Everglades With a Toddler: Same-Day Fly-In, Shuttle and Boarding", content="v3-guide",
+             pin_title="Port Everglades With a Toddler: Same-Day Fly-In, Airport Shuttle and Boarding",
+             desc="Arriving early or staying after your cruise? Our Port Everglades guide covers our same-day embarkation timeline and the cruise line's airport transfer, plus real, currently listed Viator tours, including Everglades tours, for families with extra time in Fort Lauderdale.",
+             alt="A Disney cruise ship at its berth in Port Everglades beyond a chain-link fence, under a cloudy sky."),
+    ],
+    "royal-caribbean": [
+        dict(slug="royal-caribbean-voyager-8-month-old", kind="photo", src="rc-ocean-along-the-hull.jpg", focus=0.5, cover=[],
+             image_title="Royal Caribbean Voyager of the Seas With an 8-Month-Old", type="new", content="v1-8-month-old",
+             pin_title="Royal Caribbean Voyager of the Seas With an 8-Month-Old: Galveston to Cozumel",
+             desc="Our April 2024 Royal Caribbean Voyager of the Seas cruise from Galveston, Texas, to Cozumel, Mexico, with an 8-month-old: embarkation, the stateroom, dining, a Cozumel beach day and our own photos. It is a short, honest report of a 4-night sailing, so check current itineraries, rules and prices before you book.",
+             alt="The side of a Royal Caribbean ship and its wooden railing, with deep blue ocean and white clouds."),
+        dict(slug="royal-caribbean-galveston-cozumel-4-nights", kind="photo", src="rc-sunrise-at-sea.jpg", focus=0.5, cover=[],
+             image_title="Galveston to Cozumel: Our 4-Night Royal Caribbean Cruise", content="v2-4-night-itinerary",
+             pin_title="Galveston to Cozumel on Royal Caribbean: Our 4-Night Voyager of the Seas Cruise",
+             desc="A 4-night Western Caribbean sailing on Voyager of the Seas: leave Galveston on a Thursday afternoon, a sea day, a day in Cozumel, another sea day, then back in Galveston on Monday. We sailed April 11 to 15, 2024 with our daughter, and only one of the days was spent in port.",
+             alt="The sun low over the ocean seen through a ship window, with the bow deck below."),
+        dict(slug="royal-caribbean-baby-honest-report", kind="type", kicker="ROYAL CARIBBEAN WITH A BABY",
+             image_title="Royal Caribbean With a Baby: Our Honest Voyager of the Seas Report", content="v3-baby-report",
+             pin_title="Royal Caribbean With a Baby: Our Honest Voyager of the Seas Report",
+             desc="Cruising Royal Caribbean with a baby? We booked a Spacious Panoramic Ocean View stateroom on Deck 12 and requested a play yard for our daughter, which is worth asking for when you book. Notes on boarding in Galveston, dinner and the buffet, the Royal Promenade and a Cozumel beach day.",
+             alt="Navy pin with the text: Royal Caribbean With a Baby: Our Honest Voyager of the Seas Report."),
+    ],
+    "halloween": [
+        dict(slug="halloween-on-the-high-seas", kind="type", kicker="DISNEY HALLOWEEN CRUISE",
+             image_title="Halloween on the High Seas: Our Disney Destiny Sailing", type="new", content="v1-our-sailing",
+             pin_title="Disney Halloween on the High Seas: What We Saw on Our Disney Destiny Sailing",
+             desc="Disney Cruise Line offers a seasonal event called Halloween on the High Seas on select fall sailings. Our 4-day, 3-night Disney Destiny sailing out of Port Everglades on September 18 to 21, 2026 was one, with a trick-or-treat event on the upper deck on day three that kids could join. Here is what we saw and how to check a sailing before you book.",
+             alt="Navy pin with the text: Halloween on the High Seas: Our Disney Destiny Sailing."),
+        dict(slug="halloween-how-to-check-your-sailing", kind="type", kicker="DISNEY HALLOWEEN CRUISE",
+             image_title="Is Your Disney Cruise a Halloween on the High Seas Sailing?", content="v2-check-your-sailing",
+             pin_title="Is Your Disney Cruise a Halloween on the High Seas Sailing? How to Check Before You Book",
+             desc="The event is offered on select sailings, not every cruise in the season. Confirm your exact sailing is labeled Halloween on the High Seas on the Disney Cruise Line website or with your travel agent before you book, then check the Navigator app aboard for the event schedule and character times.",
+             alt="Navy pin with the text: Is Your Disney Cruise a Halloween on the High Seas Sailing?"),
+        dict(slug="halloween-toddler-trick-or-treat-nursery", kind="type", kicker="DISNEY HALLOWEEN CRUISE",
+             image_title="Halloween Cruise With a Toddler: Trick-or-Treat & the Nursery", content="v3-toddler-nursery",
+             pin_title="Disney Halloween Cruise With a Toddler: Trick-or-Treat on Day 3 and the Nursery",
+             desc="On our Halloween on the High Seas sailing on the Disney Destiny, day three had a trick-or-treat event on the upper deck that kids could take part in. Our daughter stayed in the It's a Small World Nursery, so if you have a young child, compare nursery hours with the event schedule once you are aboard.",
+             alt="Navy pin with the text: Halloween Cruise With a Toddler: Trick-or-Treat and the Nursery."),
+    ],
+    "galveston": [
+        dict(slug="galveston-cruise-port-guide", kind="photo", src="rc-galveston-port-view.jpg", focus=0.5, cover=[],
+             image_title="Galveston Cruise Port Guide: Parking, Pier 10 & Arrival Day", content="v1-guide",
+             pin_title="Galveston Cruise Port Guide: Parking, Pier 10 and Arrival Day With a Baby",
+             desc="Sailing from Galveston? We sailed Royal Caribbean's Voyager of the Seas out of Galveston in April 2024 with our 8-month-old. This guide covers parking, porters and security from our own arrival day, plus the pier and airport drive times from Royal Caribbean's port directions. Terminals and parking rules change, so confirm before you travel.",
+             alt="The Galveston port seen through a cruise ship window on embarkation day, with the water, port buildings and cranes in the distance and empty loungers on the deck below."),
+        dict(slug="galveston-cruise-parking-tips", kind="type", kicker="GALVESTON CRUISE PORT",
+             image_title="Galveston Cruise Parking: Reserve Ahead & Plan for the Walk", content="v2-parking",
+             pin_title="Galveston Cruise Parking: Reserve Ahead and Plan for the Walk With Luggage and a Stroller",
+             desc="We booked our Galveston cruise parking ahead on the Port of Galveston's official website, and the walk from parking to the terminal was the hardest part of our day with luggage and a baby in a stroller. Pack so you can move your bags in as few trips as possible, keep one adult's hands free for the stroller and bring cash for the porters.",
+             alt="Navy pin with the text: Galveston Cruise Parking: Reserve Ahead and Plan for the Walk."),
+        dict(slug="galveston-cruise-which-airport", kind="type", kicker="GALVESTON CRUISE PORT",
+             image_title="Flying Into Houston for a Galveston Cruise: Hobby or Bush?", content="v3-which-airport",
+             pin_title="Flying Into Houston for a Galveston Cruise: Which Airport Is Closer to the Pier?",
+             desc="Royal Caribbean's port directions give about 45 minutes from Houston Hobby to the Galveston pier and about 2 hours from Houston Bush Intercontinental. Hobby is the closer airport, and the one we would pick. Confirm routes and terminals with Royal Caribbean and the Port of Galveston before you travel.",
+             alt="Navy pin with the text: Flying Into Houston for a Galveston Cruise: Hobby or Bush?"),
+    ],
+    "castaway-cay": [
+        dict(slug="castaway-cay-palms", existing=True, content="v1-beach-tips",
+             pin_title="Castaway Cay Beach Tips for Families (Disney's Private Island)",
+             desc="Which beach to pick at Disney's private island with kids: the shaded family beach fills up fast after 10am, so head there first and save the adults-only Serenity Bay for nap time. Plus cabanas, a glass-bottom boat tour and our own beach day on a 3-night Disney Destiny sailing.",
+             alt="A palm tree leaning over rows of loungers and colorful umbrellas on a beach under a partly cloudy sky."),
+        dict(slug="castaway-cay-toddler", existing=True, content="v2-toddler-day",
+             pin_title="Castaway Cay With a Toddler: Our Beach Day on a Disney Destiny Cruise",
+             desc="Our beach day at Castaway Cay on a 4-day, 3-night Disney Destiny sailing with a toddler. Castaway Cay was basically a beach day followed by dinner back on the ship, and the photo pass we bought covered the crew's photos on the beach. Tips on where to set up and when.",
+             alt="Colorful beach umbrellas and loungers on the sand at the water's edge under a blue sky with wispy clouds."),
+        dict(slug="castaway-cay-family-beach-vs-serenity-bay", kind="photo", src="castaway-cay-welcome-sign.jpg", focus=0.5, cover=[],
+             image_title="Castaway Cay: Family Beach vs. Serenity Bay", content="v3-family-vs-serenity",
+             pin_title="Castaway Cay: Family Beach vs. Serenity Bay (Which to Pick With a Toddler)",
+             desc="Disney's private island splits into distinct zones, and picking the right one for a family with a toddler makes or breaks the day. We compare the family beach with the adults-only Serenity Bay, plus cabanas and the glass-bottom boat tour, which are booked through Disney.",
+             alt="The Castaway Cay welcome sign hanging between wooden posts above palm trees under a blue sky."),
+    ],
+    "destiny-review": [
+        dict(slug="destiny-toddler-review", existing=True, content="v1-review",
+             pin_title="Disney Destiny 3-Night Cruise Review With a Toddler (2026)",
+             desc="A parent's review of a 4-day, 3-night Disney Destiny cruise from Port Everglades with a toddler: the stateroom, rotational dining, kids' clubs and the nursery, the Toy Story splash pad, the photo pass and the ports, Castaway Cay and Nassau. Our verdict: for a first cruise, three nights gave us a good experience.",
+             alt="The Disney Destiny cruise ship docked at a pier, with a rope-and-post railing in the foreground and a blue sky above."),
+        dict(slug="destiny-rotational-dining", kind="type", kicker="DISNEY DESTINY REVIEW",
+             image_title="Disney Destiny Dining: 1923, World of Marvel & Pride Lands", content="v2-dining",
+             pin_title="Disney Destiny Rotational Dining: 1923, World of Marvel and Pride Lands",
+             desc="On our 3-night Disney Destiny sailing we rotated through three themed restaurants: 1923 on night one, World of Marvel on night two and Pride Lands on night three, which had a musical-style show during dinner. Disney sets the rotation and only shares it once you are aboard, so you cannot plan exact outfits ahead.",
+             alt="Navy pin with the text: Disney Destiny Dining: 1923, World of Marvel and Pride Lands."),
+        dict(slug="destiny-three-nights-enough", kind="photo", src="destiny-from-castaway-cay.jpg", focus=0.5, cover=[],
+             image_title="Is 3 Nights Enough for a First Disney Cruise?", content="v3-three-nights",
+             pin_title="Is a 3-Night Disney Cruise Enough? Our Disney Destiny Review With a Toddler",
+             desc="We sailed the 4-day, 3-night Disney Destiny out of Port Everglades with a toddler, visiting Castaway Cay and Nassau. For a first cruise, three nights was enough time to enjoy the ship and two ports, and the kids stayed occupied. Read what worked and what we would plan around next time.",
+             alt="The Disney Destiny in the distance beyond a palm tree and a rope-and-post path on Castaway Cay."),
+    ],
+    "toddler-tips": [
+        dict(slug="toddler-cruise-tips", existing=True, content="v1-9-tips",
+             pin_title="Disney Cruise With a Toddler: 9 Tips From a 3-Night Sailing",
+             desc="Practical tips for a Disney cruise with a toddler from our 3-night Disney Destiny sailing: the airport transfer, seasickness prep, the splash pad, kids' clubs, the photo pass and whether to book a Nassau excursion. Our daughter turned three on board.",
+             alt="Rows of blue loungers with a Mickey logo on a ship's pool deck at night, with the red funnel and lit water slides behind."),
+        dict(slug="toddler-tips-nursery-kids-clubs", kind="type", kicker="DISNEY CRUISE WITH A TODDLER",
+             image_title="Disney Cruise With a Toddler: Nursery, Kids' Clubs & the Splash Pad", content="v2-kids-clubs",
+             pin_title="Disney Cruise With a Toddler: Nursery, Kids' Clubs and Splash Pad Tips",
+             desc="Our toddler was not yet potty trained, so she spent an hour in the It's a Small World Nursery while we had a break, and the Toy Story splash pad was the pool-day answer. The Walt Disney Imagineering Lab, Marvel Super Hero Academy and Star Wars Cargo Bay kept her busy the rest of the time. Check current age and potty-training rules.",
+             alt="Navy pin with the text: Disney Cruise With a Toddler: Nursery, Kids' Clubs and the Splash Pad."),
+        dict(slug="toddler-tips-seasickness-transfer-photo-pass", kind="type", kicker="DISNEY CRUISE TIPS",
+             image_title="Disney Cruise Tips: Seasickness Prep, Airport Transfer & Photo Pass", content="v3-seasick-transfer",
+             pin_title="Disney Cruise Tips: Seasickness Prep, Airport Transfer and Photo Pass With a Toddler",
+             desc="A few things that made our 3-night Disney Destiny cruise with a toddler easier: seasickness prep before you need it (talk to your pediatrician first about anything for a young child), the cruise line's airport transfer if you fly in, and a photo pass that covered crew photos onboard and at each stop.",
+             alt="Navy pin with the text: Disney Cruise Tips: Seasickness Prep, Airport Transfer and Photo Pass."),
+    ],
+    "destiny-gallery": [
+        dict(slug="destiny-photo-gallery", kind="photo", src="destiny-hull-name.jpg", focus=0.55, cover=[],
+             image_title="Disney Destiny Photo Gallery: Ship, Stateroom & Castaway Cay", content="v1-hull",
+             pin_title="Disney Destiny Photo Gallery: Ship, Stateroom and Castaway Cay",
+             desc="Our own photos from a 4-day, 3-night Disney Destiny sailing out of Port Everglades in September 2026, each with a note for families: the ship, a verandah stateroom and bathroom, pool decks, Castaway Cay and Nassau.",
+             alt="The gold Disney Destiny name in script on the dark blue hull of the ship."),
+        dict(slug="destiny-verandah-stateroom-photos", kind="photo", src="stateroom-verandah.jpg", focus=0.5, cover=[],
+             image_title="Disney Destiny Verandah Stateroom: Our Photos", content="v2-stateroom",
+             pin_title="Disney Destiny Verandah Stateroom Photos: Balcony, Bed and Bathroom",
+             desc="See a midship verandah stateroom on the Disney Destiny: a small table and chair on the balcony with a privacy divider, the bed and vanity with a lighted mirror, and the bathroom. All photos are our own, from a September 2026 sailing.",
+             alt="The balcony of a cruise ship stateroom with a white chair, a small round table and a privacy divider on a wood deck."),
+        dict(slug="destiny-inside-the-ship-photos", kind="photo", src="pride-lands-sign.jpg", focus=0.5, cover=[],
+             image_title="Inside the Disney Destiny: Pride Lands, Pool Decks & More", content="v3-inside",
+             pin_title="Inside the Disney Destiny: Pride Lands, Pool Decks and More (Our Own Photos)",
+             desc="Photos from inside the Disney Destiny: the Pride Lands entrance, the Walt Disney Theatre sign, an upper-deck pool with the water slide towers behind it and a night view of the pool deck. Our own photos, with a note on each, from a 4-day, 3-night sailing.",
+             alt="The round Pride Lands: Feast of the Lion King sign on a wall inside the Disney Destiny."),
+    ],
+    "best-time-to-book": [
+        dict(slug="best-time-to-book-disney-cruise", kind="type", kicker="DISNEY CRUISE PLANNING",
+             image_title="Best Time to Book a Disney Cruise (2026-2027)", content="v1-best-time",
+             pin_title="Best Time to Book a Disney Cruise (2026-2027)",
+             desc="When does Disney Cruise Line release new itineraries, and how far out should you book? Disney typically releases sailings 15 to 18 months out, and its tiered pricing usually rises as a sailing fills, so booking early generally costs less. Includes the deposit and payment timeline.",
+             alt="Navy pin with the text: Best Time to Book a Disney Cruise (2026-2027)."),
+        dict(slug="disney-cruise-pricing-book-early", kind="type", kicker="DISNEY CRUISE PLANNING",
+             image_title="Why Booking a Disney Cruise Early Usually Costs Less", content="v2-pricing",
+             pin_title="Disney Cruise Pricing: Why Booking Early Usually Costs Less",
+             desc="Disney Cruise Line rarely has sales. Its pricing is tiered, and the same stateroom category usually gets more expensive as the sailing fills, so waiting for a deal is often the wrong strategy. Here is what actually moves the price, including sailing length, off-peak months and occasional targeted promotions.",
+             alt="Navy pin with the text: Why Booking a Disney Cruise Early Usually Costs Less."),
+        dict(slug="disney-cruise-payment-timeline", kind="type", kicker="DISNEY CRUISE PLANNING",
+             image_title="Disney Cruise Payment Timeline: 10% Deposit, Final Payment 90-120 Days Out", content="v3-payment",
+             pin_title="Disney Cruise Deposit and Payment Timeline: 10% Down, Final Payment 90 to 120 Days Out",
+             desc="You can lock in a Disney cruise with a 10% deposit and pay the rest in installments. Final payment is typically due 90 to 120 days before sailing, depending on stateroom category, and concierge and suite bookings tend to have earlier deadlines. Plus how onboard reservation windows work for Castaway Club members.",
+             alt="Navy pin with the text: Disney Cruise Payment Timeline: 10% Deposit, Final Payment 90 to 120 Days Out."),
+    ],
+    "packing-list": [
+        dict(slug="toddler-cruise-packing-list", kind="type", kicker="FAMILY CRUISE PLANNING",
+             image_title="Toddler Packing List for a Family Cruise: What to Bring and What to Skip", content="v1-packing-list",
+             pin_title="Toddler Packing List for a Family Cruise: What to Bring and What to Skip",
+             desc="What actually earns its spot in the suitcase for a cruise with a toddler: swim and pool essentials, sleep and cabin setup, getting around the ship, and what to leave at home. Cabins are small and storage is limited, so pack for the ship's real environment, not a generic vacation list.",
+             alt="Navy pin with the text: Toddler Packing List for a Family Cruise: What to Bring and What to Skip."),
+        dict(slug="toddler-cruise-packing-small-cabin", kind="photo", src="stateroom-interior.jpg", focus=0.5, cover=[],
+             image_title="Small Cabin, Toddler on Board: What Actually Earns Suitcase Space", content="v2-small-cabin",
+             pin_title="Cruise Packing List for a Toddler: Small Cabin, Limited Storage, Pack Smart",
+             desc="Cruise cabins are small and storage is limited, so packing for a toddler is about bringing the right things: swim diapers, reef-safe sunscreen, a stroller that folds small and a sleep setup that blocks light. On our Disney Destiny sailing there was a laundry facility on Deck 8, the same deck as our stateroom.",
+             alt="A cruise stateroom with a made bed, a vanity with curtains behind it and a carpet with a fireworks-and-stars pattern."),
+        dict(slug="toddler-cruise-packing-swim-diapers", kind="type", kicker="FAMILY CRUISE PLANNING",
+             image_title="Toddler Cruise Packing: Swim Diapers, Reef-Safe Sunscreen & a Small Stroller", content="v3-swim-diapers",
+             pin_title="Toddler Cruise Packing: Swim Diapers, Reef-Safe Sunscreen and a Small Stroller",
+             desc="Stroller and swim diaper issues are the two most common first-time cruiser mistakes we see in other families' trip reports. Most ship pools and splash areas require swim diapers, and a stroller that folds small is easier in tight hallways. Our guide also covers reef-safe sunscreen, sleep items to keep in your carry-on and what to skip.",
+             alt="Navy pin with the text: Toddler Cruise Packing: Swim Diapers, Reef-Safe Sunscreen and a Small Stroller."),
+    ],
+}
+
+
+def all_variants():
+    """Yield (page, variant_number, variant) in posting-priority order: all v1s, then v2s, then v3s."""
+    for n in range(3):
+        for page in PAGES:
+            vs = VARIANTS[page["key"]]
+            if n < len(vs):
+                yield page, n + 1, vs[n]
