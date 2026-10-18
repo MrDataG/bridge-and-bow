@@ -48,7 +48,7 @@ Create these six boards **with exactly these names** (the script finds boards by
 1. Create an app at the Pinterest developer site (My apps). New apps start with **Trial access**.
 2. Register a redirect URI on the app (any URL you control, for example `https://localhost/`).
 3. Open the authorize URL in a browser where you are logged in to the Business account, with scopes
-   `boards:read,pins:read,pins:write,user_accounts:read`, `response_type=code`, your client ID, the
+   `boards:read,boards:write,pins:read,pins:write,user_accounts:read` (Pinterest rejected pin creation without `boards:write`), `response_type=code`, your client ID, the
    redirect URI and any `state`. Approve. Copy the `code=` value from the address bar.
 4. In Apps Script > Project Settings > Script Properties add: `PINTEREST_CLIENT_ID`,
    `PINTEREST_CLIENT_SECRET`, `PINTEREST_REDIRECT_URI`, `PINTEREST_AUTH_CODE`.
