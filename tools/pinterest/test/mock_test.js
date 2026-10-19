@@ -41,10 +41,12 @@ function makeEnv(csvRows, opts) {
     getDataRange: () => ({ getValues: () => data.map(r => r.slice()) }),
     getRange: (r, c) => ({ setValue: v => { data[r - 1][c - 1] = v; } }),
   };
+  const auth = { cell: '', exists: opts.authTab !== false };
+  const authSheet = { getRange: () => ({ getValue: () => auth.cell, clearContent: () => { auth.cell = ''; } }) };
   const ctx = {
     Logger: { log: () => {} }, Date: FakeDate, JSON, Math, Infinity, Number, String, Object, encodeURIComponent, isNaN,
     PropertiesService: { getScriptProperties: () => ({ getProperty: k => props[k] || null, setProperty: (k, v) => { props[k] = v; }, deleteProperty: k => { delete props[k]; } }) },
-    SpreadsheetApp: { openById: () => ({ getSheetByName: n => (n === 'PinterestQueue' ? sheet : null) }) },
+    SpreadsheetApp: { openById: () => ({ getSheetByName: n => (n === 'PinterestQueue' ? sheet : (n === 'PinterestAuth' && auth.exists ? authSheet : null)), insertSheet: n => { auth.exists = true; return authSheet; } }) },
     Session: { getEffectiveUser: () => ({ getEmail: () => 'owner@example.com' }) },
     MailApp: { sendEmail: (to, s, b) => mails.push({ to, s, b }) },
     Utilities: { base64Encode: s => Buffer.from(s).toString('base64') },
@@ -60,7 +62,7 @@ function makeEnv(csvRows, opts) {
     } },
   };
   vm.createContext(ctx); vm.runInContext(src, ctx);
-  return { ctx, data, posts, mails, refreshes, setDay: d => { offsetDays = d; }, props };
+  return { ctx, data, posts, mails, refreshes, auth, setDay: d => { offsetDays = d; }, props };
 }
 
 const csv = parseCsv(fs.readFileSync(path.join(dir, 'PinterestQueue.csv'), 'utf8'));
@@ -140,6 +142,24 @@ let passed = 0; const ok = (c, m) => { assert.ok(c, m); passed++; };
   e.ctx.exchangePinterestAuthCode();
   ok(e.refreshes[0].grant_type === 'authorization_code' && e.refreshes[0].code === 'abc', 'code exchange request');
   ok(e.props.PINTEREST_ACCESS_TOKEN && e.props.PINTEREST_REFRESH_TOKEN && !e.props.PINTEREST_AUTH_CODE, 'tokens stored, code removed');
+}
+
+// 7) Paste-the-whole-address variant: parses code=, exchanges, clears the cell
+{
+  const e = makeEnv(csv); e.props.PINTEREST_REDIRECT_URI = 'https://localhost/';
+  e.auth.cell = 'https://localhost/?code=xyz123%2Fabc&state=bb1';
+  e.ctx.exchangePinterestAuthCodeFromSheet();
+  ok(e.refreshes[0].code === 'xyz123/abc', 'code parsed from full address');
+  ok(e.auth.cell === '' && e.props.PINTEREST_ACCESS_TOKEN, 'cell cleared, tokens stored');
+  const b = makeEnv(csv); b.props.PINTEREST_REDIRECT_URI = 'https://localhost/'; b.auth.cell = 'justthecode';
+  b.ctx.exchangePinterestAuthCodeFromSheet();
+  ok(b.refreshes[0].code === 'justthecode', 'bare code accepted');
+  const m = makeEnv(csv, { authTab: false }); m.props.PINTEREST_REDIRECT_URI = 'https://localhost/';
+  m.ctx.exchangePinterestAuthCodeFromSheet();
+  ok(m.refreshes.length === 0 && m.auth.exists, 'missing tab is created, no exchange attempted');
+  const z = makeEnv(csv); z.props.PINTEREST_REDIRECT_URI = 'https://localhost/';
+  z.ctx.exchangePinterestAuthCodeFromSheet();
+  ok(z.refreshes.length === 0, 'empty cell does nothing');
 }
 
 console.log('OK: ' + passed + ' checks passed');

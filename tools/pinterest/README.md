@@ -53,6 +53,10 @@ Create these six boards **with exactly these names** (the script finds boards by
 4. In Apps Script > Project Settings > Script Properties add: `PINTEREST_CLIENT_ID`,
    `PINTEREST_CLIENT_SECRET`, `PINTEREST_REDIRECT_URI`, `PINTEREST_AUTH_CODE`.
 5. Run `exchangePinterestAuthCode()` once. It stores the access and refresh tokens and deletes the code.
+   **Easier option:** skip the `PINTEREST_AUTH_CODE` property. Paste the whole address from the browser (the
+   `https://localhost/?code=...` one) into cell A1 of a tab named `PinterestAuth` in the sheet and run
+   `exchangePinterestAuthCodeFromSheet()`. It extracts the code, exchanges it and clears the cell. No copy-trimming
+   mistakes, and no secrets on screen when recording the Standard-access demo video.
 6. Run `testPinterestConnection()`, then `listPinterestBoards()` (you should see the six boards above).
 
 > **Trial access caveat.** Pinterest documents that pins and boards created with Trial access are not
