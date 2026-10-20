@@ -256,14 +256,40 @@ function refreshPinterestAccessToken_(props) {
  * The code is single-use and short-lived; it is deleted from properties afterwards.
  */
 function exchangePinterestAuthCode() {
+  var code = PropertiesService.getScriptProperties().getProperty('PINTEREST_AUTH_CODE');
+  if (pinterestExchangeCode_(code)) PropertiesService.getScriptProperties().deleteProperty('PINTEREST_AUTH_CODE');
+}
+
+/**
+ * Easier variant: paste the WHOLE address from the browser after "Give access"
+ * (https://localhost/?code=...&state=...) into cell A1 of a tab named PinterestAuth,
+ * then run this. It pulls out the code, exchanges it, and clears the cell.
+ * Nothing secret appears on screen, so this is the one to use when screen-recording.
+ */
+function exchangePinterestAuthCodeFromSheet() {
+  var ss = SpreadsheetApp.openById(pinterestSheetId_());
+  var sheet = ss.getSheetByName('PinterestAuth');
+  if (!sheet) {
+    ss.insertSheet('PinterestAuth');
+    Logger.log('Created a tab named PinterestAuth. Paste the full address into cell A1 and run this again.');
+    return;
+  }
+  var raw = String(sheet.getRange('A1').getValue() || '').trim();
+  if (!raw) { Logger.log('Cell A1 of the PinterestAuth tab is empty. Paste the full address (or just the code) there.'); return; }
+  var match = raw.match(/[?&]code=([^&#\s]+)/);
+  var code = decodeURIComponent(match ? match[1] : raw);
+  if (pinterestExchangeCode_(code)) sheet.getRange('A1').clearContent();
+}
+
+/** Shared by both entry points. Returns true when the tokens were saved. */
+function pinterestExchangeCode_(code) {
   var props = PropertiesService.getScriptProperties();
   var clientId = props.getProperty('PINTEREST_CLIENT_ID');
   var clientSecret = props.getProperty('PINTEREST_CLIENT_SECRET');
-  var code = props.getProperty('PINTEREST_AUTH_CODE');
   var redirect = props.getProperty('PINTEREST_REDIRECT_URI');
   if (!clientId || !clientSecret || !code || !redirect) {
-    Logger.log('Need PINTEREST_CLIENT_ID, PINTEREST_CLIENT_SECRET, PINTEREST_AUTH_CODE and PINTEREST_REDIRECT_URI in Script Properties.');
-    return;
+    Logger.log('Need PINTEREST_CLIENT_ID, PINTEREST_CLIENT_SECRET and PINTEREST_REDIRECT_URI in Script Properties, plus an authorization code.');
+    return false;
   }
   var response = UrlFetchApp.fetch(PINTEREST_API_BASE + '/oauth/token', {
     method: 'post',
@@ -274,14 +300,14 @@ function exchangePinterestAuthCode() {
   });
   if (response.getResponseCode() !== 200) {
     Logger.log('Code exchange failed (codes are single-use; authorize again for a new one): ' + response.getContentText());
-    return;
+    return false;
   }
   var body = JSON.parse(response.getContentText());
   props.setProperty('PINTEREST_ACCESS_TOKEN', body.access_token);
   props.setProperty('PINTEREST_REFRESH_TOKEN', body.refresh_token);
   props.setProperty('PINTEREST_TOKEN_EXPIRES_AT', String(Date.now() + (body.expires_in * 1000)));
-  props.deleteProperty('PINTEREST_AUTH_CODE');
   Logger.log('Tokens saved. Scope granted: ' + body.scope + '. Now run testPinterestConnection().');
+  return true;
 }
 
 /** Keeps the refresh token alive even if posting is paused. Wired to a weekly trigger. */
