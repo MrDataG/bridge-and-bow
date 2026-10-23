@@ -355,13 +355,13 @@ function pinterestWeeklyReport() {
       pages.forEach(function (r) { tab.appendRow([today, 'ga4_landing', r.dims[0], '', r.mets[0], r.mets[1], '']); lines.push('  ' + r.dims[0] + ' — ' + r.mets[0] + ' sessions, ' + r.mets[1] + ' engaged'); });
       if (!pages.length) lines.push('  none yet');
 
-      var camps = pinterestGa4Rows_(propertyId, ['sessionCampaign', 'sessionManualAdContent'], ['sessions'], pinterestOnly);
+      var camps = pinterestGa4Rows_(propertyId, ['sessionCampaignName', 'sessionManualAdContent'], ['sessions'], pinterestOnly);
       lines.push('', 'Sessions by campaign / pin variant (utm_campaign / utm_content):');
       camps.forEach(function (r) { tab.appendRow([today, 'ga4_campaign', r.dims[0], r.dims[1], r.mets[0], '', '']); lines.push('  ' + r.dims[0] + ' / ' + r.dims[1] + ' — ' + r.mets[0]); });
       if (!camps.length) lines.push('  none yet');
 
       var clickFilter = { andGroup: { expressions: [pinterestOnly, { filter: { fieldName: 'eventName', stringFilter: { matchType: 'EXACT', value: 'viator_click' } } }] } };
-      var clicks = pinterestGa4Rows_(propertyId, ['pagePath', 'sessionCampaign'], ['eventCount'], clickFilter);
+      var clicks = pinterestGa4Rows_(propertyId, ['pagePath', 'sessionCampaignName'], ['eventCount'], clickFilter);
       lines.push('', 'Viator clicks from Pinterest sessions (page / campaign):');
       clicks.forEach(function (r) { tab.appendRow([today, 'ga4_viator_click', r.dims[0], r.dims[1], r.mets[0], '', '']); lines.push('  ' + r.dims[0] + ' / ' + r.dims[1] + ' — ' + r.mets[0] + ' click(s)'); });
       if (!clicks.length) lines.push('  none yet');
