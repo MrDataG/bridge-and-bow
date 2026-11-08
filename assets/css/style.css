@@ -282,6 +282,32 @@
   .excursion-item .desc{font-size:12.5px; color:var(--ink-soft); margin-top:3px;}
   .pill-btn{font-family:'Fragment Mono',monospace; font-size:10px; text-transform:uppercase; background:var(--brass); color:#221602; padding:9px 15px; border-radius:14px; white-space:nowrap; cursor:pointer; font-weight:700;}
   .callout{background:#EAF1EE; border-radius:var(--radius); padding:16px 20px; margin:24px 0; font-size:13.5px;}
+
+  /* Tour boxes and mobile tour cards */
+  .tours-box{background:var(--paper-2); border:1px solid var(--line); border-left:4px solid var(--brass); border-radius:var(--radius); padding:18px 20px; margin:20px 0;}
+  .tours-box h2{font-size:18px; margin:0 0 10px;}
+  .tours-box ul{list-style:none; margin:0; padding:0; max-width:none;}
+  .tours-box p{max-width:none;}
+  .tours-box li{margin:0; padding:8px 0; border-bottom:1px solid var(--line); font-size:13.5px;}
+  .tours-box li:last-child{border-bottom:none;}
+  .tours-box li a{font-weight:700; text-decoration:underline; display:inline-block; padding:4px 0;}
+  .tours-box li span{display:block; color:var(--ink-soft); font-size:12.5px;}
+  .tours-box .tours-jump{margin:8px 0 4px; font-size:13.5px;}
+  .tours-box .tours-jump a{text-decoration:underline; font-weight:700;}
+  .tours-box .tours-disclosure{margin:6px 0 0; font-family:'Fragment Mono',monospace; font-size:11px; color:var(--ink-soft);}
+  .we-did{font-size:14px; background:var(--paper-2); border-radius:var(--radius); padding:10px 14px; margin:0 0 14px;}
+  .has-tours .prose h2[id]{scroll-margin-top:90px;}
+  .pill-btn{display:inline-flex; align-items:center; justify-content:center; min-height:40px;}
+  @media (max-width:860px){
+    .has-tours{display:flex; flex-direction:column; gap:0;}
+    .has-tours > aside{display:contents;}
+    .has-tours > aside .sidebar-box:first-child{order:-1; margin-bottom:18px;}
+    .has-tours > aside .sidebar-box:not(:first-child){order:2;}
+    .has-tours .prose{order:0;}
+    .has-tours .prose > h2{margin-top:36px; padding-top:14px; border-top:2px solid var(--line);}
+    .has-tours .excursion-item{flex-direction:column; align-items:stretch; gap:12px;}
+    .has-tours .excursion-item .pill-btn{width:100%; min-height:48px; font-size:12px; border-radius:12px;}
+  }
   .timeline{list-style:none; margin:24px 0 30px; padding:0; border-left:2px solid var(--line);}
   .timeline li{position:relative; padding:2px 0 22px 22px;}
   .timeline li::before{content:""; position:absolute; left:-6px; top:6px; width:10px; height:10px; border-radius:50%; background:var(--brass); border:2px solid var(--paper);}
