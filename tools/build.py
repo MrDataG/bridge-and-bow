@@ -146,9 +146,9 @@ def render_home_cards():
     for p in items:
         h = p["home"]
         out.append(f'''      <a class="guide-card" href="{p["path"]}">
-        <div class="guide-tag">{esc(h["tag"])}</div>
         <h3>{esc(h["title"])}</h3>
         <p>{esc(h["blurb"])}</p>
+        <div class="guide-tag">{esc(h["tag"])}</div>
       </a>''')
     return "\n".join(out)
 
@@ -159,7 +159,7 @@ def render_stats():
     ports = len([p for p in PAGES if p["section"] == "ports" and p["kind"] == "guide"])
     cells = [(guides, "In-depth guides published"), (lines, "Cruise lines reviewed"),
              (ports, "Ports covered, more added each sailing"), (1, "Very opinionated toddler co-pilot")]
-    return "\n".join(f'      <div class="stat-cell"><div class="stat-num3d" data-count="{n}">0</div>'
+    return "\n".join(f'      <div class="stat-cell"><div class="stat-num3d">{n}</div>'
                      f'<div class="stat-label3d">{esc(l)}</div></div>' for n, l in cells)
 
 
