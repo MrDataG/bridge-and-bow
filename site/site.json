@@ -71,12 +71,6 @@
         "blurb": "Our 4-day, 3-night sailing from Port Everglades: dining, the nursery, seasickness prep, and the ports.",
         "cta": "Read the guide →"
       },
-      "home": {
-        "order": 1,
-        "tag": "Cruise Lines",
-        "title": "Disney Destiny 3-Night Review",
-        "blurb": "What a Disney cruise is really like with a toddler."
-      },
       "feed": "Disney Destiny 3-Night Cruise Review with a Toddler"
     },
     {
@@ -97,12 +91,6 @@
         "title": "Royal Caribbean Voyager of the Seas: Galveston to Cozumel",
         "blurb": "Our April 2024 4-night sailing with an 8-month-old: embarkation, a Deck 12 ocean view stateroom, dining, and a beach day in Cozumel.",
         "cta": "Read the review →"
-      },
-      "home": {
-        "order": 10,
-        "tag": "Royal Caribbean",
-        "title": "Royal Caribbean Voyager of the Seas Review",
-        "blurb": "Galveston to Cozumel with an 8-month-old: stateroom, dining and a beach day."
       },
       "feed": "Royal Caribbean Voyager of the Seas: Galveston to Cozumel with an 8-Month-Old"
     },
@@ -279,12 +267,6 @@
         "blurb": "Our embarkation-day timeline from Houston, whether the airport shuttle is worth it, and Everglades tours for early arrivals.",
         "cta": "Read the guide →"
       },
-      "home": {
-        "order": 2,
-        "tag": "Ports",
-        "title": "Port Everglades: Same-Day Fly-In",
-        "blurb": "Shuttle, timeline, and Everglades tours if you arrive early."
-      },
       "feed": "Port Everglades with a Toddler: Same-Day Fly-In and Boarding"
     },
     {
@@ -333,12 +315,6 @@
         "blurb": "Family-friendly excursions, a walking tour past the Queen's Staircase, and when to stay aboard with young kids.",
         "cta": "Read the guide →"
       },
-      "home": {
-        "order": 5,
-        "tag": "Ports",
-        "title": "Nassau Excursions Worth Booking",
-        "blurb": "Swimming pigs, Pearl Island, and the Atlantis sightseeing tour."
-      },
       "feed": "Nassau Shore Excursions Worth Booking as a Family"
     },
     {
@@ -386,12 +362,6 @@
         "title": "Cozumel",
         "blurb": "Beach club day passes, snorkel and catamaran tours, and island excursions, with live Viator listings and our Royal Caribbean notes.",
         "cta": "Read the guide →"
-      },
-      "home": {
-        "order": 11,
-        "tag": "Port Guide",
-        "title": "Cozumel Shore Excursions",
-        "blurb": "Beach clubs, snorkel tours and island trips, with live Viator listings."
       },
       "feed": "Cozumel Shore Excursions for Cruise Families"
     },
