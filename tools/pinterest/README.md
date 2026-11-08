@@ -94,15 +94,16 @@ Create these six boards **with exactly these names** (the script finds boards by
 
 `pinterestWeeklyReport()` emails a summary and appends rows to a `PinterestReport` tab:
 sessions from Pinterest by landing page and by campaign/variant (GA4), Viator clicks from Pinterest sessions by
-page and campaign (GA4 `viator_click` event), and per-pin impressions, saves and outbound clicks (Pinterest
-analytics, pins posted in the last 90 days).
+page and campaign (GA4 `viator_click` event), Pinterest account totals for 7 and 30 days (impressions, outbound
+clicks, saves, engagements; the same numbers as the Pinterest app, including pins outside the queue), and per-pin
+impressions, saves and outbound clicks for the last 30 days. The per-pin heading says how many tracked pins returned
+data, and any pin that could not be read is reported with its error instead of being skipped silently.
 
 **GA4 counts only visitors who accept analytics cookies.** The site loads Google Analytics only after "Accept all",
 so GA4 sessions and `viator_click` counts are a floor, not the full picture. Pinterest's own outbound-click numbers
 count everyone, so expect the two to differ.
 
-Not yet verified against the live APIs: the Pinterest per-pin analytics call and the GA4 report were written
-from documentation and tested only against mocks. Run `pinterestWeeklyReport()` once from the editor after
+The account-totals call (`/user_account/analytics`) was written from documentation and tested only against mocks. Run `pinterestWeeklyReport()` once from the editor after
 the first pins are public and check the log. Fix any error before relying on the Monday email.
 
 ## Adding or changing pins (what Claude does)

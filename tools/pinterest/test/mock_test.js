@@ -43,15 +43,18 @@ function makeEnv(csvRows, opts) {
   };
   const auth = { cell: '', exists: opts.authTab !== false };
   const authSheet = { getRange: () => ({ getValue: () => auth.cell, clearContent: () => { auth.cell = ''; } }) };
+  const reportRows = [];
+  const reportTab = { getLastRow: () => 1, appendRow: r => reportRows.push(r) };
   const ctx = {
     Logger: { log: () => {} }, Date: FakeDate, JSON, Math, Infinity, Number, String, Object, encodeURIComponent, isNaN,
     PropertiesService: { getScriptProperties: () => ({ getProperty: k => props[k] || null, setProperty: (k, v) => { props[k] = v; }, deleteProperty: k => { delete props[k]; } }) },
-    SpreadsheetApp: { openById: () => ({ getSheetByName: n => (n === 'PinterestQueue' ? sheet : (n === 'PinterestAuth' && auth.exists ? authSheet : null)), insertSheet: n => { auth.exists = true; return authSheet; } }) },
+    SpreadsheetApp: { openById: () => ({ getSheetByName: n => (n === 'PinterestQueue' ? sheet : (n === 'PinterestReport' ? reportTab : (n === 'PinterestAuth' && auth.exists ? authSheet : null))), insertSheet: n => { if (n === 'PinterestReport') return reportTab; auth.exists = true; return authSheet; } }) },
     Session: { getEffectiveUser: () => ({ getEmail: () => 'owner@example.com' }) },
     MailApp: { sendEmail: (to, s, b) => mails.push({ to, s, b }) },
-    Utilities: { base64Encode: s => Buffer.from(s).toString('base64') },
+    Utilities: { base64Encode: s => Buffer.from(s).toString('base64'), formatDate: (d) => d.toISOString().slice(0, 10) },
     UrlFetchApp: { fetch: (url, o) => {
       const resp = (code, body) => ({ getResponseCode: () => code, getContentText: () => JSON.stringify(body) });
+      if (opts.analytics) { const r = opts.analytics(url, resp); if (r) return r; }
       if (url.includes('/boards')) return resp(200, { items: Object.entries(boards).map(([name, id]) => ({ name, id })), bookmark: '' });
       if (url.endsWith('/pins') && o.method === 'post') {
         const p = JSON.parse(o.payload); posts.push(Object.assign({ day: offsetDays }, p));
@@ -62,7 +65,7 @@ function makeEnv(csvRows, opts) {
     } },
   };
   vm.createContext(ctx); vm.runInContext(src, ctx);
-  return { ctx, data, posts, mails, refreshes, auth, setDay: d => { offsetDays = d; }, props };
+  return { ctx, data, posts, mails, reportRows, refreshes, auth, setDay: d => { offsetDays = d; }, props };
 }
 
 const csv = parseCsv(fs.readFileSync(path.join(dir, 'PinterestQueue.csv'), 'utf8'));
@@ -160,6 +163,36 @@ let passed = 0; const ok = (c, m) => { assert.ok(c, m); passed++; };
   const z = makeEnv(csv); z.props.PINTEREST_REDIRECT_URI = 'https://localhost/';
   z.ctx.exchangePinterestAuthCodeFromSheet();
   ok(z.refreshes.length === 0, 'empty cell does nothing');
+}
+
+// 8) Weekly report: account totals + per-pin detail, and failures are visible
+{
+  const urls = [];
+  const e = makeEnv(csv, { analytics: (url, resp) => {
+    urls.push(url);
+    if (url.includes('/user_account/analytics')) {
+      return url.includes('start_date=') && resp(200, { all: { summary_metrics: { IMPRESSION: 440, OUTBOUND_CLICK: 12, SAVE: 0, ENGAGEMENT: 27 } } });
+    }
+    if (url.includes('/pins/1000/analytics')) return resp(200, { all: { summary_metrics: { IMPRESSION: 35, OUTBOUND_CLICK: 2, SAVE: 0 } } });
+    if (url.includes('/pins/1001/analytics')) return resp(404, { message: 'nope' });
+    if (url.includes('/pins/1002/analytics')) return resp(200, { all: { summary_metrics: {} } });
+  } });
+  e.setDay(0); e.ctx.postDuePins(); e.ctx.pinterestWeeklyReport();
+  const body = e.mails[e.mails.length - 1].b;
+  ok(body.includes('last 7 days: 440 impressions, 12 outbound clicks, 0 saves, 27 engagements'), 'account 7d totals in email');
+  ok(body.includes('last 30 days: 440 impressions'), 'account 30d totals in email');
+  ok(e.reportRows.some(r => r[1] === 'account_30d' && r[4] === 440 && r[6] === 12), 'account totals written to the report tab');
+  ok(body.includes('2 of 3 tracked pins returned data'), 'per-pin coverage shown: ' + body);
+  ok(body.includes('1 pin(s) could not be read; first error: HTTP 404'), 'failed pin reads are surfaced, not silent');
+  ok(urls.some(u => u.includes('/user_account/analytics') && u.includes('OUTBOUND_CLICK')), 'account endpoint requested');
+  // daily-only response shape is summed
+  const d = makeEnv(csv, { analytics: (url, resp) => url.includes('/user_account/analytics') && resp(200, { all: { daily_metrics: [{ metrics: { IMPRESSION: 5, OUTBOUND_CLICK: 1 } }, { metrics: { IMPRESSION: 7, OUTBOUND_CLICK: 0 } }] } }) });
+  d.ctx.pinterestWeeklyReport();
+  ok(d.mails[0].b.includes('last 7 days: 12 impressions, 1 outbound clicks'), 'daily_metrics are summed when no summary');
+  // account endpoint error is reported
+  const x = makeEnv(csv, { analytics: (url, resp) => url.includes('/user_account/analytics') && resp(403, { code: 29 }) });
+  x.ctx.pinterestWeeklyReport();
+  ok(x.mails[0].b.includes('last 7 days: unavailable (HTTP 403'), 'account endpoint error surfaced');
 }
 
 console.log('OK: ' + passed + ' checks passed');

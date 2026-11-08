@@ -341,7 +341,7 @@ function pinterestWeeklyReport() {
   var tab = ss.getSheetByName(PINTEREST_REPORT_TAB) || ss.insertSheet(PINTEREST_REPORT_TAB);
   if (tab.getLastRow() === 0) tab.appendRow(['ReportDate', 'Section', 'Key1', 'Key2', 'Metric1', 'Metric2', 'Metric3']);
   var today = Utilities.formatDate(new Date(), 'America/Chicago', 'yyyy-MM-dd');
-  var lines = ['Pinterest weekly report — ' + today + ' (last 7 days)', ''];
+  var lines = ['Pinterest weekly report — ' + today + ' (Google Analytics: last 7 days; Pinterest: last 7 and 30 days)', ''];
 
   // 1) GA4: sessions from Pinterest by landing page and by campaign/content
   var propertyId = props.getProperty('GA4_PROPERTY_ID');
@@ -370,29 +370,45 @@ function pinterestWeeklyReport() {
     }
   }
 
-  // 2) Pinterest: per-pin impressions, saves and outbound clicks for pins posted in the last 90 days
+  // 2) Pinterest: account totals (every pin, same numbers as the Pinterest app), then per-pin detail
   try {
     var token = getValidPinterestAccessToken_(props);
-    var sheet = pinterestQueueSheet_();
-    var data = sheet.getDataRange().getValues();
-    var col = pinterestColMap_(data[0]);
-    if (token && col.PinID !== undefined) {
-      var end = new Date(), start = new Date(end.getTime() - 7 * 86400000);
-      var fmt = function (d) { return Utilities.formatDate(d, 'UTC', 'yyyy-MM-dd'); };
-      var rows = [];
-      for (var i = 1; i < data.length && rows.length < 60; i++) {
-        var pinId = data[i][col.PinID], lp = data[i][col.LastPosted];
-        if (!pinId || !lp || pinterestDaysBetween_(new Date(lp), end) > 90) continue;
-        var res = UrlFetchApp.fetch(PINTEREST_API_BASE + '/pins/' + pinId + '/analytics?start_date=' + fmt(start) + '&end_date=' + fmt(end) +
-          '&metric_types=IMPRESSION,OUTBOUND_CLICK,SAVE', { headers: { Authorization: 'Bearer ' + token }, muteHttpExceptions: true });
-        if (res.getResponseCode() !== 200) { Logger.log('Analytics ' + pinId + ': ' + res.getContentText()); continue; }
-        var summary = (JSON.parse(res.getContentText()).all || {}).summary_metrics || {};
-        rows.push({ title: data[i][col.PinTitle], url: data[i][col.URL], imp: summary.IMPRESSION || 0, clk: summary.OUTBOUND_CLICK || 0, sav: summary.SAVE || 0 });
+    if (token) {
+      lines.push('', 'Pinterest account totals (all pins, same as the Pinterest app):');
+      [7, 30].forEach(function (days) {
+        var t = pinterestAccountTotals_(token, days);
+        if (t.error) { lines.push('  last ' + days + ' days: unavailable (' + t.error + ')'); return; }
+        tab.appendRow([today, 'account_' + days + 'd', '', '', t.imp, t.sav, t.clk]);
+        lines.push('  last ' + days + ' days: ' + t.imp + ' impressions, ' + t.clk + ' outbound clicks, ' + t.sav + ' saves, ' + t.eng + ' engagements');
+      });
+
+      var sheet = pinterestQueueSheet_();
+      var data = sheet.getDataRange().getValues();
+      var col = pinterestColMap_(data[0]);
+      if (col.PinID !== undefined) {
+        var end = new Date(), start = new Date(end.getTime() - 30 * 86400000);
+        var fmt = function (d) { return Utilities.formatDate(d, 'UTC', 'yyyy-MM-dd'); };
+        var rows = [], checked = 0, failed = 0, firstFail = '';
+        for (var i = 1; i < data.length && checked < 60; i++) {
+          var pinId = data[i][col.PinID], lp = data[i][col.LastPosted];
+          if (!pinId || !lp || pinterestDaysBetween_(new Date(lp), end) > 90) continue;
+          checked++;
+          var res = UrlFetchApp.fetch(PINTEREST_API_BASE + '/pins/' + pinId + '/analytics?start_date=' + fmt(start) + '&end_date=' + fmt(end) +
+            '&metric_types=IMPRESSION,OUTBOUND_CLICK,SAVE', { headers: { Authorization: 'Bearer ' + token }, muteHttpExceptions: true });
+          if (res.getResponseCode() !== 200) {
+            failed++;
+            if (!firstFail) firstFail = 'HTTP ' + res.getResponseCode() + ' ' + String(res.getContentText()).slice(0, 120);
+            continue;
+          }
+          var summary = (JSON.parse(res.getContentText()).all || {}).summary_metrics || {};
+          rows.push({ title: data[i][col.PinTitle], url: data[i][col.URL], imp: summary.IMPRESSION || 0, clk: summary.OUTBOUND_CLICK || 0, sav: summary.SAVE || 0 });
+        }
+        rows.sort(function (a, b) { return b.clk - a.clk || b.imp - a.imp; });
+        lines.push('', 'Pins by outbound clicks (Pinterest analytics, last 30 days, ' + rows.length + ' of ' + checked + ' tracked pins returned data):');
+        rows.slice(0, 15).forEach(function (r) { tab.appendRow([today, 'pin', r.title, r.url, r.imp, r.sav, r.clk]); lines.push('  ' + r.clk + ' clicks, ' + r.imp + ' impressions, ' + r.sav + ' saves — ' + r.title); });
+        if (!rows.length) lines.push('  no pins with analytics yet');
+        if (failed) lines.push('  ' + failed + ' pin(s) could not be read; first error: ' + firstFail);
       }
-      rows.sort(function (a, b) { return b.clk - a.clk || b.imp - a.imp; });
-      lines.push('', 'Pins by outbound clicks (Pinterest analytics, last 7 days):');
-      rows.slice(0, 15).forEach(function (r) { tab.appendRow([today, 'pin', r.title, r.url, r.imp, r.sav, r.clk]); lines.push('  ' + r.clk + ' clicks, ' + r.imp + ' impressions, ' + r.sav + ' saves — ' + r.title); });
-      if (!rows.length) lines.push('  no pins with analytics yet');
     }
   } catch (err2) {
     lines.push('', 'Pinterest analytics section failed: ' + err2);
@@ -401,6 +417,28 @@ function pinterestWeeklyReport() {
   var to = pinterestNotifyEmail_();
   if (to) MailApp.sendEmail(to, 'Bridge & Bow — Pinterest weekly report ' + today, lines.join('\n'));
   Logger.log(lines.join('\n'));
+}
+
+/**
+ * Account-wide Pinterest totals for the last N days (all pins, including ones not in the queue).
+ * Returns { imp, clk, sav, eng } or { error }.
+ */
+function pinterestAccountTotals_(token, days) {
+  var end = new Date(), start = new Date(end.getTime() - days * 86400000);
+  var fmt = function (d) { return Utilities.formatDate(d, 'UTC', 'yyyy-MM-dd'); };
+  var res = UrlFetchApp.fetch(PINTEREST_API_BASE + '/user_account/analytics?start_date=' + fmt(start) + '&end_date=' + fmt(end) +
+    '&metric_types=IMPRESSION,OUTBOUND_CLICK,SAVE,ENGAGEMENT', { headers: { Authorization: 'Bearer ' + token }, muteHttpExceptions: true });
+  if (res.getResponseCode() !== 200) return { error: 'HTTP ' + res.getResponseCode() + ' ' + String(res.getContentText()).slice(0, 120) };
+  var all = (JSON.parse(res.getContentText()).all) || {};
+  var m = all.summary_metrics;
+  if (!m) {
+    m = {};
+    (all.daily_metrics || []).forEach(function (d) {
+      var dm = d.metrics || {};
+      Object.keys(dm).forEach(function (k) { m[k] = (m[k] || 0) + (Number(dm[k]) || 0); });
+    });
+  }
+  return { imp: m.IMPRESSION || 0, clk: m.OUTBOUND_CLICK || 0, sav: m.SAVE || 0, eng: m.ENGAGEMENT || 0 };
 }
 
 /** Runs one GA4 report for the last 7 days; returns [{dims:[], mets:[]}]. */
