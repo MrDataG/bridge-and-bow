@@ -427,6 +427,19 @@
       "date": "2026-10-17",
       "freq": "yearly",
       "priority": "0.2"
+    },
+    {
+      "path": "store.html",
+      "section": "store",
+      "kind": "meta",
+      "active": "store",
+      "noindex": true,
+      "title": "Store | Bridge & Bow Travel",
+      "desc": "The Bridge & Bow Travel store is coming soon. Until then, read our honest cruise reviews, port guides and planning tips from our own family sailings.",
+      "og_image": "assets/img/social-card.png",
+      "date": "2026-11-08",
+      "freq": "monthly",
+      "priority": "0.3"
     }
   ],
   "not_found": {
