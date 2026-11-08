@@ -43,15 +43,20 @@ function makeEnv(csvRows, opts) {
   };
   const auth = { cell: '', exists: opts.authTab !== false };
   const authSheet = { getRange: () => ({ getValue: () => auth.cell, clearContent: () => { auth.cell = ''; } }) };
+  const locks = { n: 0, released: 0 };
+  const reportRows = [];
+  const reportTab = { getLastRow: () => 1, appendRow: r => reportRows.push(r) };
   const ctx = {
     Logger: { log: () => {} }, Date: FakeDate, JSON, Math, Infinity, Number, String, Object, encodeURIComponent, isNaN,
     PropertiesService: { getScriptProperties: () => ({ getProperty: k => props[k] || null, setProperty: (k, v) => { props[k] = v; }, deleteProperty: k => { delete props[k]; } }) },
-    SpreadsheetApp: { openById: () => ({ getSheetByName: n => (n === 'PinterestQueue' ? sheet : (n === 'PinterestAuth' && auth.exists ? authSheet : null)), insertSheet: n => { auth.exists = true; return authSheet; } }) },
+    SpreadsheetApp: { openById: () => ({ getSheetByName: n => (n === 'PinterestQueue' ? sheet : (n === 'PinterestReport' ? reportTab : (n === 'PinterestAuth' && auth.exists ? authSheet : null))), insertSheet: n => { if (n === 'PinterestReport') return reportTab; auth.exists = true; return authSheet; } }) },
+    LockService: { getScriptLock: () => ({ tryLock: () => { locks.n++; return true; }, releaseLock: () => { locks.released++; } }) },
     Session: { getEffectiveUser: () => ({ getEmail: () => 'owner@example.com' }) },
     MailApp: { sendEmail: (to, s, b) => mails.push({ to, s, b }) },
-    Utilities: { base64Encode: s => Buffer.from(s).toString('base64') },
+    Utilities: { base64Encode: s => Buffer.from(s).toString('base64'), formatDate: (d) => d.toISOString().slice(0, 10) },
     UrlFetchApp: { fetch: (url, o) => {
       const resp = (code, body) => ({ getResponseCode: () => code, getContentText: () => JSON.stringify(body) });
+      if (opts.analytics) { const r = opts.analytics(url, resp, o); if (r) return r; }
       if (url.includes('/boards')) return resp(200, { items: Object.entries(boards).map(([name, id]) => ({ name, id })), bookmark: '' });
       if (url.endsWith('/pins') && o.method === 'post') {
         const p = JSON.parse(o.payload); posts.push(Object.assign({ day: offsetDays }, p));
@@ -62,7 +67,7 @@ function makeEnv(csvRows, opts) {
     } },
   };
   vm.createContext(ctx); vm.runInContext(src, ctx);
-  return { ctx, data, posts, mails, refreshes, auth, setDay: d => { offsetDays = d; }, props };
+  return { ctx, data, posts, mails, reportRows, locks, refreshes, auth, setDay: d => { offsetDays = d; }, props };
 }
 
 const csv = parseCsv(fs.readFileSync(path.join(dir, 'PinterestQueue.csv'), 'utf8'));
@@ -160,6 +165,57 @@ let passed = 0; const ok = (c, m) => { assert.ok(c, m); passed++; };
   const z = makeEnv(csv); z.props.PINTEREST_REDIRECT_URI = 'https://localhost/';
   z.ctx.exchangePinterestAuthCodeFromSheet();
   ok(z.refreshes.length === 0, 'empty cell does nothing');
+}
+
+// 8) Weekly report: account totals + per-pin detail from the account's own pin list
+{
+  const urls = [];
+  const pinList = { items: [
+    { id: '1', title: 'Pin A', link: 'https://bridgeandbowtravel.com/a.html?utm_source=pinterest' },
+    { id: '2', title: 'Pin B', link: 'https://bridgeandbowtravel.com/b.html' },
+    { id: '3', title: 'Pin C', link: 'https://bridgeandbowtravel.com/c.html' } ], bookmark: '' };
+  const e = makeEnv(csv, { analytics: (url, resp) => {
+    urls.push(url);
+    if (url.includes('/user_account/analytics')) return resp(200, { all: { summary_metrics: { IMPRESSION: 440, OUTBOUND_CLICK: 12, SAVE: 0, ENGAGEMENT: 27 } } });
+    if (url.includes('/pins?page_size')) return resp(200, pinList);
+    if (url.includes('/pins/1/analytics')) return resp(200, { all: { summary_metrics: { IMPRESSION: 35, OUTBOUND_CLICK: 2, SAVE: 0 } } });
+    if (url.includes('/pins/2/analytics')) return resp(404, { message: 'nope' });
+    if (url.includes('/pins/3/analytics')) return resp(200, { all: { summary_metrics: {} } });
+  } });
+  e.ctx.pinterestWeeklyReport();
+  const body = e.mails[e.mails.length - 1].b;
+  ok(body.includes('last 7 days: 440 impressions, 12 outbound clicks, 0 saves, 27 engagements'), 'account 7d totals in email');
+  ok(body.includes('last 30 days: 440 impressions'), 'account 30d totals in email');
+  ok(e.reportRows.some(r => r[1] === 'account_30d' && r[4] === 440 && r[6] === 12), 'account totals written to the report tab');
+  ok(body.includes('2 of 3 pins on the account returned data'), 'per-pin coverage comes from the account list: ' + body);
+  ok(body.includes('1 pin(s) could not be read; first error: HTTP 404'), 'failed pin reads are surfaced, not silent');
+  ok(e.reportRows.some(r => r[1] === 'pin' && r[3] === 'https://bridgeandbowtravel.com/a.html' && r[6] === 2), 'pin row has the URL without utm parameters');
+  ok(urls.some(u => u.includes('/user_account/analytics') && u.includes('OUTBOUND_CLICK')), 'account endpoint requested');
+  const d = makeEnv(csv, { analytics: (url, resp) => url.includes('/user_account/analytics') ? resp(200, { all: { daily_metrics: [{ metrics: { IMPRESSION: 5, OUTBOUND_CLICK: 1 } }, { metrics: { IMPRESSION: 7, OUTBOUND_CLICK: 0 } }] } }) : (url.includes('/pins?page_size') ? resp(200, { items: [], bookmark: '' }) : null) });
+  d.ctx.pinterestWeeklyReport();
+  ok(d.mails[0].b.includes('last 7 days: 12 impressions, 1 outbound clicks'), 'daily_metrics are summed when no summary');
+  const x = makeEnv(csv, { analytics: (url, resp) => url.includes('/user_account/analytics') ? resp(403, { code: 29 }) : (url.includes('/pins?page_size') ? resp(200, { items: [], bookmark: '' }) : null) });
+  x.ctx.pinterestWeeklyReport();
+  ok(x.mails[0].b.includes('last 7 days: unavailable (HTTP 403'), 'account endpoint error surfaced');
+}
+
+// 9) A rejected token (401) is refreshed once, under a lock, and the call is retried
+{
+  let first = true; const auths = [];
+  const e = makeEnv(csv, { analytics: (url, resp, o) => {
+    if (url.endsWith('/pins') && o.method === 'post') { auths.push(o.headers.Authorization); if (first) { first = false; return resp(401, { code: 2, message: 'Session is no longer valid for this access token.' }); } }
+    return null;
+  } });
+  e.setDay(0); e.ctx.postDuePins();
+  ok(e.refreshes.length === 1 && e.refreshes[0].grant_type === 'refresh_token', 'exactly one refresh after the 401');
+  ok(auths[0] === 'Bearer tok' && auths[1] === 'Bearer tok1', 'retry uses the new token: ' + auths.slice(0, 2));
+  ok(e.posts.length === 3, 'all 3 pins still posted after the retry, got ' + e.posts.length);
+  ok(e.mails.length === 0, 'no failure email when the retry succeeds');
+  ok(e.locks.n === 1 && e.locks.released === 1, 'refresh took and released the script lock');
+  // a persistent 401 does not loop: one refresh, one retry, then the failure is recorded
+  const f = makeEnv(csv, { analytics: (url, resp, o) => (url.endsWith('/pins') && o.method === 'post') ? resp(401, { code: 2 }) : null });
+  f.setDay(0); f.ctx.postDuePins();
+  ok(f.posts.length === 0 && f.refreshes.length <= 3 && f.mails.length >= 1, 'persistent 401 is reported, bounded refreshes: ' + f.refreshes.length);
 }
 
 console.log('OK: ' + passed + ' checks passed');
