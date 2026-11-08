@@ -81,6 +81,10 @@ def render_nav(page):
     photos = next(p for p in PAGES if p.get("active") == "photos")
     ph_cur = ' aria-current="true"' if page.get("active") == "photos" else ""
     out.append(f'      <a href="{a(photos["path"])}"{ph_cur}>Photos</a>')
+    store = next((p for p in PAGES if p.get("active") == "store"), None)
+    if store:
+        st_cur = ' aria-current="true"' if page.get("active") == "store" else ""
+        out.append(f'      <a href="{a(store["path"])}"{st_cur}>Store</a>')
     out.append("    </nav>")
     return "\n".join(out)
 
@@ -92,7 +96,7 @@ def render_footer(page):
         items = "".join(f'<li><a href="{a(p["path"])}">{esc(p["footer"])}</a></li>' for p in section_pages(sec["id"]))
         cols.append(f'      <div><h3>{esc(sec["label"])}</h3><ul>{items}</ul></div>')
     about = ("".join(f'<li><a href="{a(p)}">{l}</a></li>' for p, l in
-                     [("about.html", "Our Story"), ("contact.html", "Contact"), ("privacy.html", "Privacy &amp; Cookies")]))
+                     [("about.html", "Our Story"), ("contact.html", "Contact"), ("store.html", "Store"), ("privacy.html", "Privacy &amp; Cookies")]))
     return f'''<footer>
   <div class="wrap">
     <div class="footer-grid">
@@ -208,6 +212,9 @@ def sync_head(text, page, label):
              f'<meta name="twitter:title" content="{esc(title)}">\n'
              f'<meta name="twitter:description" content="{esc(desc)}">\n'
              f'<meta name="twitter:image" content="{img}">')
+    if page.get("noindex"):
+        block = '<meta name="robots" content="noindex">\n' + block
+    text = re.sub(r'\n?<meta name="robots" content="[^"]*">', "", text)
     text, n = re.subn(r"(</title>)", lambda m: m.group(1) + "\n" + block, text, count=1)
     if n != 1:
         ERRORS.append(f"{label}: no <title> to anchor head block")
@@ -288,6 +295,8 @@ def build_404():
 def build_sitemap():
     rows = []
     for p in PAGES:
+        if p.get("noindex"):
+            continue
         rows.append(f"  <url>\n    <loc>{canonical(p)}</loc>\n    <lastmod>{p['date']}</lastmod>\n"
                     f"    <changefreq>{p['freq']}</changefreq>\n    <priority>{p['priority']}</priority>\n  </url>")
     return ('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
