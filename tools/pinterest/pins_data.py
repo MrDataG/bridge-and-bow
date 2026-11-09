@@ -59,6 +59,16 @@ VARIANTS = {
              pin_title="Cozumel With a Baby: Our Beach Day at Playa Mía Grand Beach Park",
              desc="What our April 2024 Cozumel port day looked like with an 8-month-old: Playa Mía Grand Beach Park, a beach with a pool and a lunch buffet included. We booked it once we were onboard. If you want a similar day, here is how to find beach club passes you can book ahead.",
              alt="Navy pin with the text: Cozumel With a Baby: Our Beach Day at Playa Mía Grand Beach Park."),
+        dict(slug="cozumel-beach-club-or-boat-tour", kind="type", kicker="COZUMEL WITH KIDS",
+             image_title="Cozumel With Young Kids: Beach Club or Boat Tour?", content="v4-club-or-boat",
+             pin_title="Cozumel With Young Kids: Beach Club Day Pass or Boat Tour? How to Choose",
+             desc="Beach clubs and calm boat tours tend to suit the youngest kids better than ATV or jeep tours, which usually have age and driver requirements. Our guide compares beach club day passes and boat and snorkel tours researched on Viator, and what we did with our 8-month-old at Playa Mía Grand Beach Park. Always confirm age limits and your ship's all-aboard time on the listing.",
+             alt="Navy pin with the text: Cozumel With Young Kids: Beach Club or Boat Tour?"),
+        dict(slug="cozumel-all-aboard-time", kind="type", kicker="COZUMEL PORT DAY",
+             image_title="Booking a Cozumel Tour? Check Your All-Aboard Time First", content="v5-all-aboard",
+             pin_title="Booking a Cozumel Excursion? Check Your Ship's All-Aboard Time First",
+             desc="Before you book any Cozumel beach club, snorkel tour or island tour, look up your ship's all-aboard time and leave a buffer for getting back to the pier. Tours vary by date, group size and season. Our Cozumel guide lists real Viator experiences for families and the notes from our own April 2024 beach day.",
+             alt="Navy pin with the text: Booking a Cozumel Excursion? Check Your Ship's All-Aboard Time First."),
     ],
     "nassau": [
         dict(slug="nassau-stay-aboard-or-tour", existing=True, content="v1-stay-aboard",
@@ -75,6 +85,16 @@ VARIANTS = {
              pin_title="Nassau With Young Kids: What to Skip (ATV and Jet Ski Tours Have Age Limits)",
              desc="ATV and jet ski tours are popular in Nassau, but they usually have minimum age requirements, often 8 and up to ride and sometimes higher to drive. For toddlers and young kids, calmer snorkeling and beach club options tend to fit better. Always check the fine print on the listing.",
              alt="Navy pin with the text: What to Skip in Nassau With Young Kids: ATV and Jet Ski Age Limits."),
+        dict(slug="nassau-pearl-island-beach-day", kind="type", kicker="NASSAU BEACH DAY",
+             image_title="Pearl Island Beach Day From Nassau: A Calmer Family Option", content="v4-pearl-island",
+             pin_title="Pearl Island Beach Day From Nassau: A Calmer Family Option With Lunch",
+             desc="A ferry to a private island near Nassau with two beaches, snorkeling, kayaks and paddleboards, and a Bahamian lunch included, as described on the Viator listing. It is a half-day excursion, so confirm the departure time fits your ship's port schedule. More family-friendly Nassau tours are in our guide.",
+             alt="Navy pin with the text: Pearl Island Beach Day From Nassau: A Calmer Family Option."),
+        dict(slug="nassau-walking-tour-toddler", kind="type", kicker="NASSAU WITH A TODDLER",
+             image_title="Nassau Walking Tour With a Toddler: What to Know First", content="v5-walking-tour",
+             pin_title="Nassau Walking Tour With a Toddler: What the Listing Says Before You Book",
+             desc="A guided walking tour of downtown Nassau starts at the Queen's Staircase and runs about 3 hours on foot. The listing is not wheelchair accessible and does not mention strollers, and a reviewer notes some hills and steps, so consider a carrier for a toddler. A 2.5-hour coach tour is a lower-key option. Details in our Nassau guide.",
+             alt="Navy pin with the text: Nassau Walking Tour With a Toddler: What the Listing Says Before You Book."),
     ],
     "port-everglades": [
         dict(slug="port-everglades-embarkation", existing=True, content="v1-hour-by-hour",
@@ -91,6 +111,16 @@ VARIANTS = {
              pin_title="Port Everglades With a Toddler: Same-Day Fly-In, Airport Shuttle and Boarding",
              desc="Arriving early or staying after your cruise? Our Port Everglades guide covers our same-day embarkation timeline and the cruise line's airport transfer, plus real, currently listed Viator tours, including Everglades tours, for families with extra time in Fort Lauderdale.",
              alt="A Disney cruise ship at its berth in Port Everglades beyond a chain-link fence, under a cloudy sky."),
+        dict(slug="port-everglades-everglades-tours", kind="type", kicker="FORT LAUDERDALE WITH KIDS",
+             image_title="Everglades Day Trip From Fort Lauderdale With Kids", content="v4-everglades-tours",
+             pin_title="Everglades Tours From Fort Lauderdale for Families: Two Airboat Options",
+             desc="Arriving early or staying after your cruise? Two Everglades airboat tours are listed on Viator: about 2 hours with a 40-minute airboat ride, or about 4 hours with hotel pickup and drop-off included. We did not take them ourselves, so confirm price, pickup details and age rules on the listing. More in our Port Everglades guide.",
+             alt="Navy pin with the text: Everglades Tours From Fort Lauderdale for Families: Two Airboat Options."),
+        dict(slug="port-everglades-disney-shuttle", kind="type", kicker="PORT EVERGLADES",
+             image_title="Is the Cruise Line Airport Shuttle Worth It at Port Everglades?", content="v5-shuttle",
+             pin_title="Is the Disney Airport Shuttle Worth It at Port Everglades? Our Experience",
+             desc="On our September 2026 Disney Cruise Line sailing we booked the cruise line's transfer between the Fort Lauderdale airport and the port. For us the benefit was flexibility: we could board with no specific arrival time assigned, while guests not using the transfer are given a check-in window. Confirm prices and boarding rules with Disney Cruise Line before you book.",
+             alt="Navy pin with the text: Is the Disney Airport Shuttle Worth It at Port Everglades? Our Experience."),
     ],
     "royal-caribbean": [
         dict(slug="royal-caribbean-voyager-8-month-old", kind="photo", src="rc-ocean-along-the-hull.jpg", focus=0.5, cover=[],
@@ -246,7 +276,7 @@ VARIANTS = {
 
 def all_variants():
     """Yield (page, variant_number, variant) in posting-priority order: all v1s, then v2s, then v3s."""
-    for n in range(3):
+    for n in range(max(len(v) for v in VARIANTS.values())):
         for page in PAGES:
             vs = VARIANTS[page["key"]]
             if n < len(vs):
