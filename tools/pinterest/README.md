@@ -11,7 +11,7 @@ pins and pages earn clicks. **No secrets are stored in this repo.**
 | `pins_data.py` | Single source of truth: pages, boards, and 3 pin variants per page (titles, descriptions, alt text) |
 | `make_pins.py` | Generates the 1000x1500 pin images into `assets/img/pins/` |
 | `build_queue.py` | Builds and validates `PinterestQueue.csv` (title/description limits, images exist, no identifiers) |
-| `PinterestQueue.csv` | 36 queue rows (12 pages x 3 variants), ready to import into the sheet |
+| `PinterestQueue.csv` | 42 queue rows (12 pages x 3 variants, plus 2 extra each for Cozumel, Nassau and Port Everglades), ready to import into the sheet |
 | `pinterest-auto-pin-apps-script.gs` | The Apps Script: posts pins, refreshes tokens, weekly report, triggers |
 | `test/mock_test.js` | Offline test: runs the script against mocked services and simulates 60 days |
 
